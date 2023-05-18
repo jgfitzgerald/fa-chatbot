@@ -1,0 +1,17 @@
+- id: 0
+  messages:
+    - What can I help you with?
+  input:
+    type: buttons_single_select
+    key: province
+    dummy_text: Choose a province...
+    option_list: [Find the next course, Help me choose a course]
+  outcome:
+    - cases: [Find the next course]
+      response:
+        - Thank you!
+      next: None
+    - cases: [Help me choose a course]
+      response:
+        - Great!
+      next: None

@@ -1,0 +1,41 @@
+# This YAML file denotes the introductory conversation of the chatbot.
+# The user will select the province they'd like to get their training done in.
+# If Life Start does not service the selected province, the user will be prompted to sign up for a newsletter.
+
+- id: 0
+  messages:
+    - Thanks for checking out Life Start, my name is Aida.
+    - I'm a chatbot here to help with all your first aid needs.
+    - Let's start out with what province you are looking to get your training done in.
+  input:
+    type: buttons_single_select
+    key: province
+    dummy_text: Choose a province...
+    option_list: [New Brunswick, Nova Scotia, NB, NS, Alberta, AB, British Colombia, BC, Ontario, 'ON', Manitoba, MB, Newfoundland and Labrador, NL, Prince Edward Island, PEI, Quebec, QC, Saskatchewan, SK]
+  outcome:
+    - cases: [New Brunswick, Nova Scotia, NB, NS]
+      response:
+        - Thank you!
+      next: 'task_select'
+    - cases: [Alberta, AB, British Colombia, BC, Ontario, ON, Manitoba, MB, Newfoundland and Labrador, NL, Prince Edward Island, PEI, Quebec, QC, Saskatchewan, SK]
+      response:
+        - It looks like we haven't expanded in your area yet, you can sign up for our newsletter and when we open a location we will let you know
+      next: 1
+
+- id: 1
+  messages:
+    - Would you like to sign up for our newsletter? We will email you about updates, including new franchise expansions.
+  input:
+    type: buttons_single_select
+    key: yes_no
+    dummy_text: Please select...
+    option_list: ['Yes, sure.', 'No, thank you.']
+  outcome:
+    - cases: ['Yes, sure.']
+      response:
+        - Thank you! # TODO do newsletter task
+      next: 'closing_options'
+    - cases: ['No, thank you.']
+      response:
+        - No problem.
+      next: 'closing_options'
