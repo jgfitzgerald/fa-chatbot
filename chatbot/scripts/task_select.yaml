@@ -9,9 +9,9 @@
   outcome:
     - cases: [Find the next course]
       response:
-        - Thank you!
-      next: None
+        - I would be happy to help you find the next course in your area!
+      next: 'find_next_course'
     - cases: [Help me choose a course]
       response:
-        - Great!
-      next: None
+        - Finding the right course can be difficult. Luckily, I'm here to help!
+      next: 'choose_course'
