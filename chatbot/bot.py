@@ -12,9 +12,10 @@ class Chatbot:
         
         self.id = uuid.uuid4()
         self.scripts = []
-        self.variables = {}
         self.chat_history = []
         self.current_index = 0
+        
+        self.user_params = {}
         
         script_path = os.path.join(os.path.dirname(__file__), "scripts", 'intro_select_province.yaml') # TODO replace with const
         
@@ -65,15 +66,17 @@ class Chatbot:
             
         if payload is not None:
             response = payload['response']
-            case['response'].extend(response)  # Extend the list instead of appending
+            if case['response'] is not None:
+                response = case['response'].extend(response)  # Extend the list instead of appending
             
+        print(case)
         return {
             "id": self.id,
             "payload": {
                 "input": payload['input'] if payload is not None else None,
                 "response": case['response']
             }
-}
+        }
 
         
     # loads the next script, or proceeds to the next token where applicable

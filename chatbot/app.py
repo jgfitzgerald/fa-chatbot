@@ -4,8 +4,7 @@ from bot import Chatbot
 app = Flask(__name__)
 db = {}
 
-# TODO comments
-# TODO api requests and urls
+# TODO api calls, optimize yaml formatting, store and update user info
 
 @app.route('/app/chat', methods=['POST'])
 def chat():
