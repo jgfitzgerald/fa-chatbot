@@ -47,7 +47,6 @@ class Chatbot:
     # process an indivudal step in a script
     def process_token(self, script, index):
         current_token = script[index]
-        print(current_token)
 
         if isinstance(current_token['id'], str):
              return current_token
@@ -77,11 +76,13 @@ class Chatbot:
         case = matching_cases[0]
         payload = self.get_next(case['next'])
         
-        # TODO error for no matching cases
+        # TODO this whole thing needs to be more understandable
+        
+        if 'id' in payload and isinstance(payload['id'], str):
+            return task_handler.task_factory(self.id, payload)
         
         if 'store' in input_data and input_data['store'] is True:
             self.params[input_data['key']] = input
-        print(payload)
         if payload is not None:
             response = payload['response']
             if case['response'] is not None:
