@@ -10,7 +10,7 @@
   input:
     type: buttons_single_select
     key: province
-    store: no
+    store: yes
     dummy_text: Choose a province...
     option_list: [New Brunswick, Nova Scotia, NB, NS, Alberta, AB, British Colombia, BC, Ontario, 'ON', Manitoba, MB, Newfoundland and Labrador, NL, Prince Edward Island, PEI, Quebec, QC, Saskatchewan, SK]
   outcome:

@@ -10,7 +10,7 @@
     - cases: [Find the next course]
       response:
         - I would be happy to help you find the next course in your area!
-      next: 'find_next_course'
+      next: 'find_courses'
     - cases: [Help me choose a course]
       response:
         - Finding the right course can be difficult. Luckily, I'm here to help!

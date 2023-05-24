@@ -27,3 +27,6 @@ htmlcov/
 # Other
 db.sqlite3
 script.sh
+
+# Ignore lines with # TODO
+*# TODO
