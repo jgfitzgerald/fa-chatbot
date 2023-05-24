@@ -19,7 +19,7 @@
 
 - id: 1
   messages:
-    - 'Sure thing! Just select the course you are looking for from the list below, and I can see if there are any upcoming courses at our {{location}} location.'
+    - 'Just select the course you are looking for from the list below, and I can see if there are any upcoming courses at our {{location}} location.'
     - 'Note: To search and register manually, click [here](https://www.lifestarttraining.com/).'
   input:
     type: buttons_single_select
@@ -30,25 +30,33 @@
   outcome:
     - cases: {{course_list}}
       response:
-        - Searching for courses...
+        - Thanks! If youre unsure on whether {{course}} is right for you, I can give you some information about it, or I can search for upcoming courses.
       next: 2
-  
-- id: 2
-  api_call:
-    method: POST
-    url: '{{API_URL}}/api/courses/allcourses'
-    body:
-      location: "2"
-      course: "74"
-  outcome:
-    - response:
-        - 'Here are the upcoming courses:'
-      next: 3
-    - error:
-        - 'Sorry, an error occurred while retrieving the course information.'
-      next: 'error_step'
 
-- id: 3
+- id: 2
+  messages:
+    - How would you like to proceed?
+  input:
+    type: buttons_single_select
+    key: info_or_search
+    store: no
+    dummy_text: Please choose...
+    option_list: ['Give me information about {{course}}', 'Search for course dates', 'Back to course selection']
+  outcome:
+    - cases: ['Give me information about {{course}}']
+      response:
+        - I'd be happy to give you information on {{course}}.
+      next: '{{course}}_info'
+    - cases: ['Search for course dates']
+      response:
+        - "Sure, I'll look for courses being held in {{location}}."
+      next: 'course_api_call'
+    - cases: ['Back to course selection']
+      response:
+        - Sure thing.
+      next: 1
+
+- id: 4
   messages:
     - {{response}}
   input:

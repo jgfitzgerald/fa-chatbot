@@ -2,6 +2,8 @@
 # If the user selects no, the conversation will end and the user will be prompted to optionally answer a satisfaction survery, or reset the conversation.
 # If the user selects yes, they will be rerouted to 'task_select'
 
+# TODO change these to json files
+
 - id: 0
   messages:
     - Is there anything else I can help you with today?

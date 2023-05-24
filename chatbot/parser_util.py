@@ -2,6 +2,16 @@ import yaml
 import re
 
 def substitute_variables(data, variables):
+    """
+    The substitute_variables function takes a string and a dictionary of variables.
+    It then replaces all occurrences of {{variable}} with the value in the dictionary.
+    If the variable is not found, it will be replaced with an empty string.
+    
+    :param data: Pass in the data that needs to be substituted
+    :param variables: Pass in the dictionary of variables that will be used to replace the variable placeholders
+    :return: A string
+    :doc-author: Trelent
+    """
     pattern = r"\{\{(.*?)\}\}"
     
     def substitute(match):
@@ -18,19 +28,6 @@ def substitute_variables(data, variables):
     
     substituted_data = re.sub(pattern, substitute, data)
     return substituted_data
-
-# def substitute_variables(data, variables):
-#     pattern = r"\{\{([^}]+)\}\}"
-#     substituted_data = re.sub(pattern, lambda match: get_substitution(match.group(1), variables), data)
-#     return substituted_data
-
-
-# def get_substitution(variable, variables):
-#     value = variables.get(variable)
-#     if isinstance(value, list):
-#         return ", ".join(str(item) for item in value)
-#     return str(value)
-
 
 def process_yaml_file(file_path, data_map):
     with open(file_path) as file:

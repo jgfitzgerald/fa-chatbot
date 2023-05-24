@@ -1,7 +1,5 @@
-- id: 'course_api_call'
-  api_call:
-    method: 'POST'
-    url: '{{API_URL}}/api/courses/allcourses'
+- id: 'find_courses'
+  params: [{{location}}, {{course}}]
   outcome:
     - response:
         - 'Here are the upcoming courses:'

@@ -55,9 +55,9 @@
     key: location
     store: yes
     dummy_text: Please select...
-    option_list: ['Moncton', 'Saint John']
+    option_list: {{location_list}}
   outcome:
-    - cases: ['Moncton', 'Saint John']
+    - cases: {{location_list}}
       response:
         - Thank you!
       next: 'task_select'
