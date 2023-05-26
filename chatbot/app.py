@@ -1,7 +1,9 @@
 from flask import Flask, abort, request, jsonify
 from bot import Chatbot
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 db = {}
 
 # TODO api calls, optimize yaml formatting, store and update user info
@@ -17,12 +19,43 @@ def chat():
 
 @app.route('/app/start', methods=['POST'])
 def start():
+    convo = {
+        'ice': {
+            'says': ["Hi", "Would you like banana or ice cream?"],
+            'reply': [
+                {
+                    'question': "Banana",
+                    'answer': "bananaFunction"
+                },
+                {
+                    'question': "Ice Cream",
+                    'answer': "ice-cream"
+                }
+            ]
+        },
+        'ice-cream': {
+            'says': ["🍦"],
+            'reply': [
+                {
+                    'question': "Start Over",
+                    'answer': "ice"
+                }
+            ]
+        }
+    }
+
+    return jsonify(convo)
+
+if __name__ == '__main__':
+    app.run()
+
+
     # Instantiate a new chatbot
-    chatbot = Chatbot()
-    db[str(chatbot.id)] = chatbot
-    bot_response = chatbot.run()
+    # chatbot = Chatbot()
+    # db[str(chatbot.id)] = chatbot
+    # bot_response = chatbot.run()
     
-    return jsonify(bot_response)
+    # return jsonify(bot_response)
 
 # Error handler for 404 Not Found
 @app.errorhandler(404)

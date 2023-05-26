@@ -30,3 +30,5 @@ script.sh
 
 # Ignore lines with # TODO
 *# TODO
+
+node_modules
