@@ -1,45 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Run Scripts from chat-bubble</title>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
 
-    <!-- for mobile screens -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- for mobile screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- stylesheets are conveniently separated into components -->
-    <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/setup.css" />
-    <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/says.css" />
-    <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/reply.css" />
-    <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/typing.css" />
-    <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/input.css" />
-    <style>
-      body {
-        background: #dcdde0;
+  <title>Chat UI Demo</title>
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.css'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'><link rel="stylesheet" href="./style.css">
+
+  <!-- stylesheets are conveniently separated into components -->
+  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/setup.css" />
+  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/says.css" />
+  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/reply.css" />
+  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/typing.css" />
+  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/input.css" />
+
+  <style>
+    body {
+      background: #dcdde0;
+    }
+    .bubble-container {
+      height: 40vh;
+    }
+    .bubble-container .input-wrap textarea {
+      margin: 0;
+      width: calc(100% - 30px);
+    }
+  </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="center-text">
+    <h2>ChatBot UI</h2>
+    <p>Scroll to bottom enabled </p>
+  </div> 
+<div id="body"> 
+  
+<div id="chat-circle" class="btn btn-raised">
+        <div id="chat-overlay"></div>
+		    <i class="material-icons">chat</i>
+	</div>
+  
+  <div class="chat-box">
+    <div class="chat-box-header">
+      <div class="bot-icon"></div>
+      <span class="chat-box-title">Chat with Aida!</span>
+      <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+    </div>
+    <div class="chat-box-body">
+      <div class="chat-box-overlay">   
+      </div>
+       <div class="chat-logs" id="chat"></div>
+    </div>
+    <!-- spot for text input if needed
+    <div class="chat-input">      
+      <form>
+        <input type="text" id="chat-input" placeholder="Send a message..."/>
+      <button type="submit" class="chat-submit" id="chat-submit"><i class="material-icons">send</i></button>
+      </form>      
+    </div> -->
+  </div>
+  
+  
+  
+  
+</div>
+<!-- partial -->
+  <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+  <!-- import the JavaScript file -->
+  <script src="./node_modules/chat-bubble/component/Bubbles.js"></script>
+  <script>
+    var clientId = '';
+    // initialize by constructing a named function./node_modules/chat-bubble.
+    var chatWindow = new Bubbles(
+      document.getElementById("chat"), // ./node_modules/chat-bubble.passing HTML container element./node_modules/chat-bubble.
+      "chatWindow", // ./node_modules/chat-bubble.and name of the function as a parameter
+      {
+        responseCallbackFn: function (chatObject, key) {
+          input = key;
+
+          var requestBody = {
+            id: clientId,
+            input: input
+          }
+        
+          // Make a POST request to fetch the conversation flow from the API
+          fetch('http://localhost:5000/app/chat', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody)
+          })
+          .then(response => response.json())
+          .then(data => {
+              // Assign the conversation flow JSON to the convo variable
+              console.log(data)
+              var convo = data;
+
+              chatWindow.talk(convo);
+          })
+          .catch(error => {
+              // Handle any errors that occur during the API request
+              console.error('Error fetching conversation flow:', error);
+          });
+        }
       }
-      .bubble-container {
-        height: 100vh;
-      }
-      .bubble-container .input-wrap textarea {
-        margin: 0;
-        width: calc(100% - 30px);
-      }
-    </style>
-  </head>
-  <body>
-    <!-- container element for chat window -->
-    <div id="chat"></div>
+    );
+    
+    var chatStarted = false; // prevents first message from sending multiple times
+    var chatCircle = document.getElementById("chat-circle");
+    chatCircle.addEventListener("click", sendFirstMessage);
 
-    <!-- import the JavaScript file -->
-    <script src="./node_modules/chat-bubble/component/Bubbles.js"></script>
-    <script>
-      // initialize by constructing a named function./node_modules/chat-bubble.
-      var chatWindow = new Bubbles(
-        document.getElementById("chat"), // ./node_modules/chat-bubble.passing HTML container element./node_modules/chat-bubble.
-        "chatWindow" // ./node_modules/chat-bubble.and name of the function as a parameter
-      );
-
-    // Make a POST request to fetch the conversation flow from the API
+    function sendFirstMessage() {
+  // Make a POST request to fetch the conversation flow from the API
+      if (!chatStarted) {
         fetch('http://localhost:5000/app/start', {
         method: 'POST',
         headers: {
@@ -51,22 +132,19 @@
             // Assign the conversation flow JSON to the convo variable
             console.log(data)
             var convo = data;
+            clientId = convo.id;
+            delete convo.id;
+            chatStarted = true;
 
-            // Proceed with your chatbot logic using the retrieved conversation flow
-            // ...
             chatWindow.talk(convo);
         })
         .catch(error => {
             // Handle any errors that occur during the API request
             console.error('Error fetching conversation flow:', error);
         });
+      }
+    }
+  </script>
 
-      // this function is called when user asks for banana
-      var bananaFunction = function () {
-        alert("🍌");
-        console.log(convo)
-        chatWindow.talk(convo, "ice"); // the conversation can be easily restarted from here.
-      };
-    </script>
-  </body>
+</body>
 </html>

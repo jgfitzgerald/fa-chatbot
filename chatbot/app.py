@@ -1,5 +1,6 @@
 from flask import Flask, abort, request, jsonify
 from bot import Chatbot
+import os
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -20,12 +21,13 @@ def chat():
 @app.route('/app/start', methods=['POST'])
 def start():
     convo = {
+        'id': "testing",
         'ice': {
             'says': ["Hi", "Would you like banana or ice cream?"],
             'reply': [
                 {
                     'question': "Banana",
-                    'answer': "bananaFunction"
+                    'answer': "NEW BRUNSWICK"
                 },
                 {
                     'question': "Ice Cream",

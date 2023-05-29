@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "chat-bubble": "^1.5.0"
+    "chat-bubble": "^1.5.0",
+    "serve": "^14.2.0"
   }
 }
