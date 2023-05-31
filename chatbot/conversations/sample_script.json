@@ -1,0 +1,24 @@
+{
+    "ice": {
+        "says": ["Hi", "Would you like banana or ice cream?"],
+        "reply": [
+            {
+                "question": "Banana",
+                "answer": "ice"
+            },
+            {
+                "question": "Ice Cream",
+                "answer": "ice-cream"
+            }
+        ]
+    },
+    "ice-cream": {
+        "says": ["🍦"],
+        "reply": [
+            {
+                "question": "Start Over",
+                "answer": "ice"
+            }
+        ]
+    }
+}

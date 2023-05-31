@@ -1,0 +1,32 @@
+{
+    "ice": {
+        "says": ["Thank you!", "What can I assist you with today?"],
+        "reply": [
+            {
+                "question": "I need help figuring out which course I need",
+                "answer": "handleInput",
+                "next": "find_right_course.json"
+            },
+            {
+                "question": "I need help registering for a course",
+                "answer": "handleInput",
+                "next": "find_course_dates.json"
+            },
+            {
+                "question": "I need help with something else",
+                "answer": "handleInput",
+                "next": "talk_to_agent"
+            }
+        ]
+    },
+    "talk_to_agent": {
+        "says": ["Sorry to hear that.", "I'll get you in touch with a representative right away."],
+        "reply": [
+            {
+                "question": "Take me back to the beginning",
+                "answer": "handleInput",
+                "next": "talk_to_agent"
+            }
+        ]
+    }
+}

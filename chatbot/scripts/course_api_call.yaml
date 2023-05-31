@@ -1,9 +1,0 @@
-- id: 'find_courses'
-  params: [{{location}}, {{course}}]
-  outcome:
-    - response:
-        - 'Here are the upcoming courses:'
-      next: 'show_response'
-    - error:
-        - 'Sorry, an error occurred while retrieving the course information.'
-      next: 'error_step'

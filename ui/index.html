@@ -76,44 +76,15 @@
   <!-- import the JavaScript file -->
   <script src="./node_modules/chat-bubble/component/Bubbles.js"></script>
   <script>
+
     var clientId = '';
+
     // initialize by constructing a named function./node_modules/chat-bubble.
     var chatWindow = new Bubbles(
       document.getElementById("chat"), // ./node_modules/chat-bubble.passing HTML container element./node_modules/chat-bubble.
       "chatWindow", // ./node_modules/chat-bubble.and name of the function as a parameter
-      {
-        responseCallbackFn: function (chatObject, key) {
-          input = key;
-
-          var requestBody = {
-            id: clientId,
-            input: input
-          }
-        
-          // Make a POST request to fetch the conversation flow from the API
-          fetch('http://localhost:5000/app/chat', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(requestBody)
-          })
-          .then(response => response.json())
-          .then(data => {
-              // Assign the conversation flow JSON to the convo variable
-              console.log(data)
-              var convo = data;
-
-              chatWindow.talk(convo);
-          })
-          .catch(error => {
-              // Handle any errors that occur during the API request
-              console.error('Error fetching conversation flow:', error);
-          });
-        }
-      }
     );
-    
+
     var chatStarted = false; // prevents first message from sending multiple times
     var chatCircle = document.getElementById("chat-circle");
     chatCircle.addEventListener("click", sendFirstMessage);
@@ -130,7 +101,6 @@
         .then(response => response.json())
         .then(data => {
             // Assign the conversation flow JSON to the convo variable
-            console.log(data)
             var convo = data;
             clientId = convo.id;
             delete convo.id;
@@ -144,7 +114,31 @@
         });
       }
     }
-  </script>
 
+      // this function is called after the user sends a message
+      var handleInput = function(content) {
+
+        requestBody = {
+          "id": clientId,
+          "input": content
+        };
+
+        fetch('http://localhost:5000/app/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+            chatWindow.talk(data);
+        })
+        .catch(error => {
+            // Handle any errors that occur during the API request
+            console.error('Error fetching conversation flow:', error);
+        });
+      }
+  </script>
 </body>
 </html>
