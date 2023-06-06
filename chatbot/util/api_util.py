@@ -6,9 +6,8 @@ NUM_DISPLAY = 3
 
 def get_class_list(location_id, course_id):
     body = {"location":location_id, "course": course_id}
-    print(body)
     response = requests.post(f'{API_URL}/api/courses/list', json = body)
-    print(response.json)
+    
     if response.status_code == 200:
         return response.json()
     else:
