@@ -11,11 +11,6 @@
                 "question": "I need help registering for a course",
                 "answer": "handleInput",
                 "next": "find_course_dates.json"
-            },
-            {
-                "question": "I need help with something else",
-                "answer": "handleInput",
-                "next": "talk_to_agent"
             }
         ]
     },

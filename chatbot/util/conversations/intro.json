@@ -1,12 +1,12 @@
 {
     "ice": {
-        "says": ["Thanks for checking out Life Start, my name is Aida.", "I'm a chatbot here to help with all your first aid needs.", "Let's start out with what province you are looking to get your training done in."],
+        "says": ["Thanks for checking out Life Start, my name is Aida.", "I'm a chatbot here to help with your course-related needs.", "Let's start out with what province you are looking to get your training done in."],
         "response_key": "province",
         "reply": [
             {
                 "question": "New Brunswick",
                 "answer": "handleInput",
-                "next": "service_available"
+                "next": "select_task"
             },
             {
                 "question": "Alberta",
@@ -16,7 +16,7 @@
             {
                 "question": "Nova Scotia",
                 "answer": "handleInput",
-                "next": "service_available"
+                "next": "select_task"
             },
             {
                 "question": "PEI",
@@ -105,13 +105,18 @@
             }
         ]
     },
-    "service_available": {
-        "says": ["Thank you!"],
+    "select_task": {
+        "says": ["Thank you!", "What can I assist you with today?"],
         "reply": [
             {
-                "question": "Take me to the next task!",
+                "question": "I need help choosing the right course",
                 "answer": "handleInput",
-                "next": "select_task.json"
+                "next": "find_right_course.json"
+            },
+            {
+                "question": "I need help finding the next course dates in my area",
+                "answer": "handleInput",
+                "next": "find_course_dates.json"
             }
         ]
     }

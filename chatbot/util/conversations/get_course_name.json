@@ -1,0 +1,8 @@
+{
+    "ice": {
+        "says": ["Wonderful.", "Please select the course you wish to take, and I'll find the next course dates at our {{location}} location."],
+        "response_key": "course",
+        "reply": [],
+        "next": "display_course.json"
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "ice": {
+        "says": ["Great! I'm finding the next course dates in {{location}} now.", "Do any of these dates work for you?"],
+        "response_key": "course_date",
+        "next": "registration",
+        "reply": [
+            {
+                "question": "None of the dates work for me.",
+                "answer": "handleInput",
+                "next": "next_dates"
+            }
+        ]
+    },
+    "next_dates": {
+        "says": ["No problem, I'll get the next dates at {{location}} for you.", "Do any of these dates work for you?"],
+        "response_key": "course_date",
+        "next": "registration",
+        "reply": [
+            {
+                "question": "None of the dates work for me.",
+                "answer": "handleInput",
+                "next": "next_dates"
+            }
+        ]
+    },
+    "no_dates": {
+        "says": ["Sorry, there's no more dates with that course available at that location.", "I'd be happy to get you in touch with a representative, or I can search again for a different course."],
+        "response_key": "province",
+        "reply": [
+            {
+                "question": "None of the dates work for me.",
+                "answer": "handleInput",
+                "next": "next_dates"
+            },
+            {
+                "question": "None of the dates work for me.",
+                "answer": "handleInput",
+                "next": "next_dates"
+            }
+        ]
+    },
+    "registration": {
+        "says": ["Testing"],
+        "response_key": "province",
+        "reply": [
+            {
+                "question": "Hey were here.",
+                "answer": "handleInput",
+                "next": "next_dates"
+            },
+            {
+                "question": "None of the dates work for me.",
+                "answer": "handleInput",
+                "next": "next_dates"
+            }
+        ]
+    }
+}

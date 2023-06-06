@@ -1,0 +1,103 @@
+{
+    "ice": {
+        "says": ["Sure, I'd be happy to help you select the best course for your needs.", "To start, could you please pick which best describes you?"],
+        "reply": [
+            {
+                "question": "I want to take a course for the first time.",
+                "answer": "handleInput",
+                "next": "init_course_find.json"
+            },
+            {
+                "question": "My certification is expired and I want to renew.",
+                "answer": "handleInput",
+                "next": "init_course_find_"
+            },
+            {
+                "question": "My certification has not yet expired and I want to renew.",
+                "answer": "handleInput",
+                "next": "{{province}} recert"
+            }
+        ]
+    },
+    "New Brunswick recert": {
+        "says": ["Great to hear that you want to renew your certification with us.", "New Brunswick now requires those renewing their first aid certifications to redo their first aid course in its entirety every three years.", "Which course were you looking to renew?"],
+        "response_key": "course",
+        "next": "hybrid_or_online",
+        "reply": []
+    },
+    "Nova Scotia recert": {
+        "says": ["Great to hear that you want to renew your certification with us.", "Which course were you looking to renew?"],
+        "response_key": "course",
+        "next": "hybrid_or_online",
+        "reply": []
+    },
+    "hybrid_or_online": {
+        "says": ["Thank you. And lastly, were you looking to renew your certification via a hybrid format or a completely in-person format?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "In-person",
+                "answer": "handleInput",
+                "next": "get_in_person_course.json"
+            },
+            {
+                "question": "Hybrid",
+                "answer": "handleInput",
+                "next": "get_hybrid_course.json"
+            },
+            {
+                "question": "What's the difference?",
+                "answer": "handleInput",
+                "next": "hybrid_online_explanation"
+            }
+        ]
+    },
+    "hybrid_online_explanation": {
+        "says": ["In our in-person classes, participants learn all in the information they need to know for their certification in the classroom, no pre-studying required.", "Our hybrid classes require participants to first complete a set of self-lead videos through our online before coming to class in-person for a skills assessment.", "Hybrid programs may offer more flexibility as the videos can be completed at any time before the skills assessment, and participants often spend less time in the classroom.", "That being said, would you prefer to renew your certification in a hyrbid or in-person format?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "In-person",
+                "answer": "handleInput",
+                "next": "get_course"
+            },
+            {
+                "question": "Hybrid",
+                "answer": "handleInput",
+                "next": "get_course"
+            }
+        ]
+    },
+    "get_course": {
+        "says": ["The course you have currently selected is {{format}} {{course}}.", "How would you like to proceed?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "Get information on selected course.",
+                "answer": "handleInput",
+                "next": "information/{{format}}_{{course}}.json"
+            },
+            {
+                "question": "Find next course dates in my area.",
+                "answer": "handleInput",
+                "next": "display_course.json"
+            },
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "select_new_course"
+            },
+            {
+                "question": "Contact us",
+                "answer": "handleInput",
+                "next": "contact_us.json"
+            }
+        ]
+    },
+    "select_new_course": {
+        "says": ["Sure thing. Which course were you looking to take?"],
+        "response_key": "course",
+        "next": "hybrid_or_online",
+        "reply": []
+    }
+}
