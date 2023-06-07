@@ -1,0 +1,17 @@
+{
+    "ice": {
+        "says": ["Life Start Safe Tween & Babysitting Program is an interative, hands-on youth program that includes a 6 hour in-person class with lots of learning.","Kids will receive a babysitter certificate upon completion.", "This course is ideal for kids ages 10-13.", "Topics covered: The art of babysitting, Basic first aid,  breathing emergencies, infant, child and adult CPR and AED, Age appropriate budgeting and resumes, Cooking safety, basic hygiene, internet safety."],
+        "reply": [
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "init_course_find.json"
+            },
+            {
+                "question": "Register for this course.",
+                "answer": "handleInput",
+                "next": "init_course_find_"
+            }
+        ]
+    }
+}

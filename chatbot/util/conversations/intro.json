@@ -66,13 +66,13 @@
             {
                 "question": "No, thank you.",
                 "answer": "handleInput",
-                "next": "outro"
+                "next": "outro.json"
             }
 
         ]
     },
     "sign_up_for_newsletter": {
-        "says": ["Click [here](https://www.lifestarttraining.com/) to sign up for our newsletter!", "Is there anything else I can help you with today?"],
+        "says": ["Click <a href=\"https://www.lifestarttraining.com/\">here</a> to sign up for our newsletter!", "Is there anything else I can help you with today?"],
         "reply": [
             {
                 "question": "Yes",
@@ -82,26 +82,18 @@
             {
                 "question": "No",
                 "answer": "handleInput",
-                "next": "outro"
+                "next": "outro.json"
             }
 
         ]
     },
     "outro": {
-        "says": ["At Life Start, we are overacheivers. I'm always looking to improve!", "If you would like to complete a short satisfaction survey about your experience with me today, please click here. This survey is completely optional, and is used to help improve my user experience.", "Otherwise, have a lovely day! You can click 'start over' to restart the conversation."],
+        "says": ["At Life Start, we are overacheivers. I'm always looking to improve!", "If you would like to complete a short satisfaction survey about your experience with me today, please click <a href=\"https://www.lifestarttraining.com/\">here</a>. This survey is completely optional, and is used to help improve my user experience.", "Otherwise, have a lovely day! You can click 'start over' to restart the conversation."],
         "reply": [
             {
                 "question": "Start over",
                 "answer": "handleInput",
                 "next": "ice"
-            }
-        ]
-    },
-    "transition_to_ice": {
-        "says": ["Sure thing!"],
-        "reply": [
-            {
-                "answer": "ice"
             }
         ]
     },

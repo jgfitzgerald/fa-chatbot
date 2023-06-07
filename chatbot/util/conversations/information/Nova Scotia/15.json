@@ -1,0 +1,17 @@
+{
+    "ice": {
+        "says": ["Hybrid CPR/AED Level C is ideal for dental hygenists, nursing students, and nurses and includes 2.5 hours of online, self-lead, video-based modules, followed by a 1.5 hour in-person skills assessment.", "This certification is valid for 3 years, after which the course will need to be completed in its entirety again for renewal.", "Topics covered: Emergency Scene Management and PPE, Cardiopulmonary Resuscitation (CPR) and Automated external defibrillators (AED), Heart, breathing and stroke related emergencies", "How would you like to proceed?"],
+        "reply": [
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "init_course_find.json"
+            },
+            {
+                "question": "Register for this course.",
+                "answer": "handleInput",
+                "next": "init_course_find_"
+            }
+        ]
+    }
+}

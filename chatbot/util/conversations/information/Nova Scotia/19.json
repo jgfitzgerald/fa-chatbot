@@ -1,0 +1,17 @@
+{
+    "ice": {
+        "says": ["This course is currently not available in New Brunswick. To recertify Emergency First Aid, you will need to retake the course in its entirety."],
+        "reply": [
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "init_course_find.json"
+            },
+            {
+                "question": "Register for this course.",
+                "answer": "handleInput",
+                "next": "init_course_find_"
+            }
+        ]
+    }
+}

@@ -48,7 +48,9 @@ class Chatbot:
         
     # substitute placeholders in a conversation with user-inputted parameters
     def sub_params(self, convo, index, params):
-        
+        if 'course' in self.user_params:
+            self.user_params['course_id'] = response_handler.course_map[self.user_params['course']]
+            
         def substitute(match):
             key = match.group(1)
             if key in params:
@@ -60,7 +62,7 @@ class Chatbot:
         substituted_str = re.sub(pattern, substitute, data_str)
 
         substituted_data = json.loads(substituted_str)
-
+            
         if 'response_key' in substituted_data[index]:
             substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.user_params)
 
@@ -75,7 +77,6 @@ class Chatbot:
         # Store the response if required
         if 'response_key' in convo:
             self.user_params[convo['response_key']] = input
-            # print(convo['response_key'])
         
         # Get the next token
         answer = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)

@@ -56,6 +56,7 @@ def handle_course_date(convo, user_params):
     
     if not earliest_classes:
         path = os.path.join(os.path.dirname(__file__), "conversations", "no_courses.json")
+        user_params['index'] = 0
         with open(path, "r") as file:
             return json.load(file)["ice"]
 

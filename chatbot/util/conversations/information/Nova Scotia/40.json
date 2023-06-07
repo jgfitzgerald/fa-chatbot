@@ -1,0 +1,12 @@
+{
+    "ice": {
+        "says": ["Marine basic first aid is ideal for fishermen abd neets Transport Canada's requirements for a first aid certification.", "Participants will be required to complete 16 hours of in-class room skills demonstration spanning across 2 days.", "An official Transport Canada Certificate will be mailed after completion.", "Topics covered: Marine scene management, PPE, Cardiopulmonary Resuscitation (CPR) and Automated external defibrillators (AED), Heart, breathing and stroke related emergencies, Wound care, head, neck, spine injuries"],
+        "reply": [
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "init_course_find.json"
+            }
+        ]
+    }
+}

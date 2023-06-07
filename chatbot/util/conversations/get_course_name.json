@@ -1,8 +1,31 @@
 {
     "ice": {
-        "says": ["Wonderful.", "Please select the course you wish to take, and I'll find the next course dates at our {{location}} location."],
+        "says": ["Please select the course you are interested in."],
         "response_key": "course",
-        "reply": [],
-        "next": "display_course.json"
+        "reply": [
+            {
+                "question": "The course I want isn't listed",
+                "answer": "handleInput",
+                "next": "not_listed"
+            }
+        ],
+        "next": "info_or_get_dates.json"
+    },
+    "not_listed": {
+        "says": ["Sorry to hear that. I can get you in contact with a representative, or you can select a different course."],
+        "response_key": "course",
+        "reply": [
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "course"
+            },
+            {
+                "question": "Contact a representative.",
+                "answer": "handleInput",
+                "next": "outro.json"
+            }
+        ],
+        "next": "info_or_get_dates.json"
     }
 }

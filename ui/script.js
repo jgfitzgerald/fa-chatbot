@@ -1,4 +1,5 @@
 $(function() {
+  
   $(document).delegate(".chat-btn", "click", function() {
     var value = $(this).attr("chat-value");
     var name = $(this).html();
@@ -54,5 +55,7 @@ $(function() {
 
     var chatBoxHeader = chatBox.querySelector(".chat-box-header");
     chatBoxHeader.addEventListener("mousedown", handleResizeStart);
+
+    
   }
 });
