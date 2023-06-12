@@ -14,7 +14,7 @@
                 "next": "get_course_name.json"
             },
             {
-                "question": "I don't know which course suits my needs.",
+                "question": "I don`t know which course suits my needs.",
                 "answer": "handleInput",
                 "next": "find_right_course.json"
             }
