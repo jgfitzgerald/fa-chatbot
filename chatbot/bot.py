@@ -1,122 +1,93 @@
-import yaml
-import parser_util
-import os
+import os, uuid, json, re, copy
 import logging as log
-import uuid
-import api_util
+from util import api_util as api
+from util import response_util as response_handler
 
-# The Chatbot class takes in a file name and iterates through yaml files to dictate its conversational flow.
-# Each yaml file contains one or 'more' tokens, which are essentially tasks.
-# Each tasks typically displays a message, queries the user for input, processes the input in some way, and then proceeds to the next step in the sequence.
-# The Chatbot will iterate through these yaml files until the next step is None, signifying the end of the conversation.
 class Chatbot:
     def __init__(self):
         
-        # TODO make instantiation uhhh... more elegant
-        
         self.id = uuid.uuid4()
-        self.scripts = []
-        self.chat_history = []
-        self.current_index = 0
         
+        # empty map to hold user params
         self.user_params = {}
+        self.user_params['index'] = 0
         
-        self.courses = api_util.get_courses()
-        print(self.courses)
-        self.locations = api_util.get_locations()
+        self.current_convo = None
+        self.current_token = None
         
-        self.user_params['course_list'] = [item['name'] for item in self.courses['data']]
-        self.user_params['location_list'] = [item['name'] for item in self.locations['data']]
-        
-        script_path = os.path.join(os.path.dirname(__file__), "scripts", 'intro_select_province.yaml') # TODO replace with const
-        
-        with open(script_path, "r") as file:
-            self.current_script = yaml.safe_load(file)
-            self.scripts.append(yaml.safe_load(file))
-
-    # queue the next script
-    def load_script(self, script_file):
-        
-        script_path = os.path.join(os.path.dirname(__file__), "scripts", script_file)
-        with open(script_path, "r") as file:
-            yaml_content = file.read()
-        
-        substituted_content = parser_util.substitute_variables(yaml_content, self.user_params)
-        self.current_script = yaml.safe_load(substituted_content)
-        self.current_index = 0
-        self.scripts.append(self.current_script)
-            
-    # process the first script
+    # initiates the first conversation, sends the first message
     def run(self):
-        return { 'id': self.id, 'payload': self.process_token(self.current_script, 0) }
+        return self.load_convo('intro.json')
     
-    # process an indivudal step in a script
-    def process_token(self, script, index):
-        current_token = script[index]
-        messages = current_token['messages']
+    # TODO
+    def load_convo(self, convo):
         
-        response = []
-        for msg in messages:
-            
-            response.append(msg)
-            
-            self.chat_history.append(('bot', msg))
-            log.info('Bot: {}'.format(msg))
+        script_path = os.path.join(os.path.dirname(__file__), "util/conversations", convo)
 
-        payload = { 'response': response, 'input': script[index]['input'] }
-        
-        return payload
+        with open(script_path, "r") as file:
+            convo = json.load(file)
             
-    # handles and stores user input
-    def handle_input(self, input):
+        self.current_token = "ice" # ice is short for "ice breaker", the first convo token in a specific file
         
-        outcomes = self.current_script[self.current_index]['outcome']
-        input_data = self.current_script[self.current_index]['input']
-        
-        payload = []
-        response = []
-        
-        matching_cases = [case for case in outcomes if input in case['cases']]
-        case = matching_cases[0]
-        payload = self.get_next(case['next'])
-        
-        # TODO error for no matching cases
-        
-        if 'store' in input_data and input_data['store'] is True:
-            self.user_params[input_data['key']] = input
-        
-        print(self.user_params)
-        
-        if payload is not None:
-            response = payload['response']
-            if case['response'] is not None:
-                response = case['response'].extend(response)  # Extend the list instead of appending
-        return {
-            "id": self.id,
-            "payload": {
-                "input": payload['input'] if payload is not None else None,
-                "response": case['response']
-            }
-        }
+        substituted_content = self.sub_params(convo, self.current_token, self.user_params)
 
-    def handle_api_call(method, url, params=None):
-        print('here)')
-        
-        
-    # loads the next script, or proceeds to the next token where applicable
-    def get_next(self, next_step_key):
-        if isinstance(next_step_key, str): 
-                script_file = os.path.join(os.path.dirname(__file__), "scripts", next_step_key + ".yaml")
-                if os.path.isfile(script_file):
-                    self.load_script(next_step_key + ".yaml")
-                    return self.process_token(self.current_script, self.current_index)
-                else:
-                    log.info("Script file '{}' not found.".format(next_step_key + ".yaml"))
-                    return None
+        self.current_convo = copy.deepcopy(substituted_content)
             
-        # go to the next token in the same scripts
-        elif isinstance(next_step_key, int):
-            self.current_index = next_step_key
-            return self.process_token(self.current_script, next_step_key)
+        # trucnate conversation to include only ui-required components
+        temp = substituted_content[self.current_token].copy()
+
+        if 'response_key' in temp:
+            del temp['response_key']
+
+        # delete each 'next' item as we don't need to return it
+        for item in temp["reply"]:
+            del item["next"]
+            
+        # return trucnated conversation
+        return {"id": self.id, self.current_token: temp}
         
-        return None
+    # substitute placeholders in a conversation with user-inputted parameters
+    def sub_params(self, convo, index, params):
+        if 'course' in self.user_params:
+            self.user_params['course_id'] = response_handler.course_map[self.user_params['course']]
+            
+        def substitute(match):
+            key = match.group(1)
+            if key in params:
+                return str(params[key])
+            return match.group(0)
+
+        pattern = r"\{\{([\w_]+)\}\}"
+        data_str = json.dumps(convo)
+        substituted_str = re.sub(pattern, substitute, data_str)
+
+        substituted_data = json.loads(substituted_str)
+            
+        if 'response_key' in substituted_data[index]:
+            substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.user_params)
+
+        return substituted_data
+    
+    # handles user input and returns the next conversation token
+    def chat_input(self, input):
+
+        # get the current conversation
+        convo = self.current_convo[self.current_token]
+
+        # Store the response if required
+        if 'response_key' in convo:
+            self.user_params[convo['response_key']] = input
+        
+        # Get the next token
+        answer = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
+
+        # load the next conversations
+        if answer.endswith('.json'):
+            self.load_convo(answer)
+        else:
+            self.current_token = answer
+
+            # substitute params in the next conversation
+            self.current_convo = self.sub_params(self.current_convo, self.current_token, self.user_params)
+
+        return {"ice": self.current_convo[self.current_token]}

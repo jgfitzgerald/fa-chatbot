@@ -1,0 +1,17 @@
+{
+    "ice": {
+        "says": ["Sorry, there's no more dates with that course available at that location.", "I'd be happy to get you in touch with a representative, or I can search again for a different course."],
+        "reply": [
+            {
+                "question": "Talk to a representative.",
+                "answer": "handleInput",
+                "next": "outro.json"
+            },
+            {
+                "question": "Search for a different course.",
+                "answer": "handleInput",
+                "next": "find_course_dates.json"
+            }
+        ]
+    }
+}

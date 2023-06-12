@@ -1,0 +1,115 @@
+{
+    "ice": {
+        "says": ["Thanks for checking out Life Start, my name is Aida.", "I'm a chatbot here to help with your course-related needs.", "Let's start out with what province you are looking to get your training done in."],
+        "response_key": "province",
+        "reply": [
+            {
+                "question": "New Brunswick",
+                "answer": "handleInput",
+                "next": "select_task"
+            },
+            {
+                "question": "Alberta",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "Nova Scotia",
+                "answer": "handleInput",
+                "next": "select_task"
+            },
+            {
+                "question": "PEI",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "Newfoundland/Labrador",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "Manitoba",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "Ontario",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "British Colombia",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "Quebec",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            },
+            {
+                "question": "Saskachewan",
+                "answer": "handleInput",
+                "next": "service_not_available"
+            }
+        ]
+    },
+    "service_not_available": {
+        "says": ["It looks like we haven't expanded in your area yet, you can sign up for our newsletter and when we open a location in your province we will let you know.", "Would you like to sign up for our newsletter?"],
+        "reply": [
+            {
+                "question": "Yes, please!",
+                "answer": "handleInput",
+                "next": "sign_up_for_newsletter"
+            },
+            {
+                "question": "No, thank you.",
+                "answer": "handleInput",
+                "next": "outro.json"
+            }
+
+        ]
+    },
+    "sign_up_for_newsletter": {
+        "says": ["Click <a href=\"https://www.lifestarttraining.com/\">here</a> to sign up for our newsletter!", "Is there anything else I can help you with today?"],
+        "reply": [
+            {
+                "question": "Yes",
+                "answer": "handleInput",
+                "next": "transition_to_ice"
+            },
+            {
+                "question": "No",
+                "answer": "handleInput",
+                "next": "outro.json"
+            }
+
+        ]
+    },
+    "outro": {
+        "says": ["At Life Start, we are overacheivers. I'm always looking to improve!", "If you would like to complete a short satisfaction survey about your experience with me today, please click <a href=\"https://www.lifestarttraining.com/\">here</a>. This survey is completely optional, and is used to help improve my user experience.", "Otherwise, have a lovely day! You can click 'start over' to restart the conversation."],
+        "reply": [
+            {
+                "question": "Start over",
+                "answer": "handleInput",
+                "next": "ice"
+            }
+        ]
+    },
+    "select_task": {
+        "says": ["Thank you!", "What can I assist you with today?"],
+        "reply": [
+            {
+                "question": "I need help choosing the right course",
+                "answer": "handleInput",
+                "next": "find_right_course.json"
+            },
+            {
+                "question": "I need help finding the next course dates in my area",
+                "answer": "handleInput",
+                "next": "find_course_dates.json"
+            }
+        ]
+    }
+}

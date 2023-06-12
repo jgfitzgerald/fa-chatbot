@@ -1,0 +1,12 @@
+{
+    "ice": {
+        "says": ["This course is currently not available."],
+        "reply": [
+            {
+                "question": "Select a different course.",
+                "answer": "handleInput",
+                "next": "init_course_find.json"
+            }
+        ]
+    }
+}
