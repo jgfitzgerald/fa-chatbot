@@ -11,6 +11,8 @@ def responses_factory(convo, response_key, user_params):
         return handle_courses(convo)
     if response_key == 'course_date':
         return handle_course_date(convo, user_params)
+    if response_key == 'course_by_format':
+        return handle_course_by_format(convo, user_params)
     else:
         return convo
     
@@ -75,4 +77,17 @@ def handle_course_date(convo, user_params):
 
     return convo
 
-
+def handle_course_by_format(convo, user_params):
+    courses = api.get_courses()
+    course_names = [course["name"] for course in courses["data"] if course["format"] == user_params['format']]
+    
+    # dynamically populate the reply array
+    for course_name in course_names:
+        convo["reply"].append({
+            "question": course_name,
+            "answer": "handleInput",
+            "next": convo["next"]
+        })
+    
+    del convo["next"]
+    return None
