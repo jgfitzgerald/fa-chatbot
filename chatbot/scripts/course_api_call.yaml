@@ -1,0 +1,11 @@
+- id: 'course_api_call'
+  api_call:
+    method: 'POST'
+    url: '{{API_URL}}/api/courses/allcourses'
+  outcome:
+    - response:
+        - 'Here are the upcoming courses:'
+      next: 'show_response'
+    - error:
+        - 'Sorry, an error occurred while retrieving the course information.'
+      next: 'error_step'
