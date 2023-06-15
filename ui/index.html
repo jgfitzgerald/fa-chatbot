@@ -14,11 +14,11 @@
   <link rel="stylesheet" href="./style.css">
 
   <!-- stylesheets are conveniently separated into components -->
-  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/setup.css" />
-  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/says.css" />
-  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/reply.css" />
-  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/typing.css" />
-  <link rel="stylesheet" media="all" href="./node_modules/chat-bubble/component/styles/input.css" />
+  <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/setup.css" />
+  <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/says.css" />
+  <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/reply.css" />
+  <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css" />
+  <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css" />
 
   <style>
     body {
@@ -84,15 +84,15 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
   <script  src="./script.js"></script>
   <!-- import the JavaScript file -->
-  <script src="./node_modules/chat-bubble/component/Bubbles.js"></script>
+  <script src="./chat-bubble/component/Bubbles.js"></script>
   <script>
 
     var clientId = '';
 
-    // initialize by constructing a named function./node_modules/chat-bubble.
+    // initialize by constructing a named function./chat-bubble.
     var chatWindow = new Bubbles(
-      document.getElementById("chat"), // ./node_modules/chat-bubble.passing HTML container element./node_modules/chat-bubble.
-      "chatWindow", // ./node_modules/chat-bubble.and name of the function as a parameter
+      document.getElementById("chat"), // ./chat-bubble.passing HTML container element./chat-bubble.
+      "chatWindow", // ./chat-bubble.and name of the function as a parameter
     );
 
     var chatStarted = false; // prevents first message from sending multiple times
