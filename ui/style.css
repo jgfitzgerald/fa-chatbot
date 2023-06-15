@@ -53,7 +53,7 @@ html, body {
   position:fixed;
   right:30px;
   bottom:50px;
-  min-width:25vw;
+  min-width:27vw;
   max-width: 85vw;
   max-height: 600px;
   height: auto;
@@ -138,6 +138,10 @@ html, body {
 }
 #chat-input:-moz-placeholder { /* Firefox 18- */
   color: #ccc;
+}
+
+.icon {
+  padding: 0.5em;
 }
 
 .chat-submit {  
@@ -257,6 +261,72 @@ a {
   color:#0D2B6A;
 }
 
-.bubble.reply {
-  height: 65px;
+@keyframes bubbleAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+#chat > div > div.bubble.reply.say.bubble-picked {
+  animation: bubbleAnimation 0.25s ease-in;
+}
+.msg-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  
+}
+
+.msg-container > div {
+  box-sizing: border-box;
+}
+
+.msg-container.bot {
+  flex-direction: row;
+}
+
+.msg-container.bot .avatar {
+  margin-right: 10px;
+}
+
+.msg-container.bot .bubble {
+  margin-right: 10px;
+}
+
+.msg-container.user {
+  flex-direction: row-reverse;
+}
+
+.msg-container.user .avatar {
+  margin-left: 10px;
+}
+
+.msg-container.user .bubble {
+  margin-left: 10px;
+}
+
+#user-message {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#user-message > .bubble {
+  margin-left: 10px;
+}
+
+#bot-message > div.avatar {
+  border: #fff solid;
+  background-size: cover;
+  background-image: url("assets/bot-icon.jpg");
+}
+
+#user-message > div.avatar {
+  border: #fff solid;
+  background-size: cover;
+  background-image: url("assets/user-icon.png");
 }
