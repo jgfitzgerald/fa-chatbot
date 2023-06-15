@@ -17,10 +17,12 @@ $(function() {
     $(".chat-box").toggle('scale');
   });
 
-  enableResize(); // Enable Resizegable functionality initially
+  enableResize();
+  enableMove();
 
   function enableResize() {
     var chatBox = document.getElementById("chat-box");
+    var resizeIcon = document.getElementById("resize-icon");
 
     var initialX;
     var initialY;
@@ -30,7 +32,7 @@ $(function() {
       initialX = e.clientX - chatBox.offsetLeft;
       initialY = e.clientY - chatBox.offsetTop;
 
-      chatBoxHeader.classList.add("resize-cursor"); 
+      resizeIcon.classList.add("resize-cursor"); 
 
       document.addEventListener("mousemove", handleResize);
       document.addEventListener("mouseup", handleResizeEnd);
@@ -50,13 +52,62 @@ $(function() {
       document.removeEventListener("mousemove", handleResize);
       document.removeEventListener("mouseup", handleResizeEnd);
 
-      chatBoxHeader.classList.remove("resize-cursor");
+      resizeIcon.classList.remove("resize-cursor");
     }
 
-    var chatBoxHeader = chatBox.querySelector(".chat-box-header");
-    chatBoxHeader.addEventListener("mousedown", handleResizeStart);
+    resizeIcon.addEventListener("mouseenter", function () {
+      chatBox.style.cursor = "nwse-resize";
+    });
+  
+    resizeIcon.addEventListener("mouseleave", function () {
+      chatBox.style.cursor = "default";
+    });
+
+    resizeIcon.addEventListener("mousedown", handleResizeStart);
 
     
+  }
+
+  function enableMove() {
+    var chatBox = document.getElementById("chat-box");
+    var moveIcon = document.getElementById("move-icon");
+  
+    var initialX;
+    var initialY;
+  
+    function handleMoveStart(e) {
+      initialX = e.clientX - chatBox.offsetLeft;
+      initialY = e.clientY - chatBox.offsetTop;
+  
+      chatBox.style.cursor = "move";
+  
+      document.addEventListener("mousemove", handleMove);
+      document.addEventListener("mouseup", handleMoveEnd);
+    }
+  
+    function handleMove(e) {
+      var newX = e.clientX - initialX;
+      var newY = e.clientY - initialY;
+  
+      chatBox.style.left = newX + "px";
+      chatBox.style.top = newY + "px";
+    }
+  
+    function handleMoveEnd() {
+      chatBox.style.cursor = "default";
+  
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseup", handleMoveEnd);
+    }
+  
+    moveIcon.addEventListener("mousedown", handleMoveStart);
+    moveIcon.addEventListener("mouseenter", function () {
+      chatBox.style.cursor = "move";
+    });
+  
+    moveIcon.addEventListener("mouseleave", function () {
+      chatBox.style.cursor = "default";
+    });
   }
 
 });

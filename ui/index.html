@@ -27,7 +27,7 @@
     .bubble-container {
       min-height: 40vh;
       min-width: 100%;
-      max-height: 600px;
+      max-height: 80vh;
       overflow: visible;
     }
     .bubble-container .input-wrap textarea {
@@ -54,7 +54,9 @@
   
   <div id="chat-box" class="chat-box">
     <div class="chat-box-header">
-      <div class="bot-icon"></div>
+      <!--<div class="bot-icon"></div>-->
+      <div class="icon"><i class="material-icons" id="resize-icon">open_in_full</i></div>
+      <div class="icon"><i class="material-icons" id="move-icon">open_with</i></div>
       <span class="chat-box-title">Chat with Aida!</span>
       <span class="chat-box-toggle"><i class="material-icons">close</i></span>
     </div>
@@ -63,13 +65,13 @@
       </div>
        <div class="chat-logs" id="chat"></div>
     </div>
-    <!-- spot for text input if needed
+    <!--
     <div class="chat-input">      
       <form>
         <input type="text" id="chat-input" placeholder="Send a message..."/>
       <button type="submit" class="chat-submit" id="chat-submit"><i class="material-icons">send</i></button>
       </form>      
-    </div> -->
+    </div>-->
   </div>
   
   
