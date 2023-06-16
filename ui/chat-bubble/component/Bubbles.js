@@ -242,10 +242,12 @@ var addBubble = function(say, posted, reply, live) {
     msgContainer.id = "user-message";
     msgContainer.appendChild(bubble);
     msgContainer.appendChild(avatar);
+    avatar.style.marginRight = 0;
   } else {
     msgContainer.id = "bot-message";
     msgContainer.appendChild(avatar);
     msgContainer.appendChild(bubble);
+    avatar.style.marginLeft = 0;
     if (isFirstMessage) {
       isFirstMessage = false;
     } else {
@@ -263,12 +265,12 @@ var addBubble = function(say, posted, reply, live) {
   // answer picker styles
   if (reply !== "") {
     var bubbleButtons = bubbleContent.querySelectorAll(".bubble-button");
-    for (var z = 0; z < bubbleButtons.length; z++) {
-      (function(el) {
-        if (!el.parentNode.parentNode.classList.contains("reply-freeform"))
-          el.style.width = el.offsetWidth - sidePadding * 2 + widerBy + "px";
-      })(bubbleButtons[z]);
-    }
+    // for (var z = 0; z < bubbleButtons.length; z++) {
+    //   (function(el) {
+    //     if (!el.parentNode.parentNode.classList.contains("reply-freeform"))
+    //       el.style.width = el.offsetWidth - sidePadding * 2 + widerBy + "px";
+    //   })(bubbleButtons[z]);
+    // }
     bubble.addEventListener("click", function(e) {
       if (e.target.classList.contains("bubble-button")) {
         for (var i = 0; i < bubbleButtons.length; i++) {
@@ -307,7 +309,7 @@ var addBubble = function(say, posted, reply, live) {
     bubble.classList.remove("imagine");
     avatar.style.visibility = "visible";
     var bubbleWidthCalc = bubbleContent.offsetWidth + widerBy + "px";
-    bubble.style.width = reply == "" ? bubbleWidthCalc : "";
+    //bubble.style.width = reply == "" ? bubbleWidthCalc : "";
     bubble.style.width = say.includes("<img src=") ? "50%" : bubble.style.width;
     bubble.classList.add("say");
     posted();

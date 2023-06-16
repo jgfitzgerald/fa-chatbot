@@ -68,7 +68,6 @@ html, body {
 
 .chat-box-toggle {
   float:right;
-  margin-right:15px;
   cursor:pointer;
 }
 
@@ -77,7 +76,6 @@ html, body {
   align-items: center;
   justify-content: center;
   padding: 5%;
-  padding-right: 0;
   background: #25408F;
   max-height: 10vh;
   border-top-left-radius:5px;
@@ -142,6 +140,7 @@ html, body {
 
 .icon {
   padding: 0.5em;
+  transform: scaleX(-1);
 }
 
 .chat-submit {  
@@ -272,9 +271,10 @@ a {
   }
 }
 
-#chat > div > div.bubble.reply.say.bubble-picked {
+.bubble.reply.say.bubble-picked {
   animation: bubbleAnimation 0.25s ease-in;
 }
+
 .msg-container {
   display: flex;
   flex-wrap: wrap;
@@ -329,4 +329,8 @@ a {
   border: #fff solid;
   background-size: cover;
   background-image: url("assets/user-icon.png");
+}
+
+#chat > div > div.bubble-typing {
+  margin-left: 38px;
 }
