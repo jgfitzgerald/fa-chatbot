@@ -1,0 +1,76 @@
+{
+    "ice": {
+        "says": ["I'd be happy to help you find the next course dates in your area.", "Which location were you looking for?"],
+        "response_key": "location",
+        "next": "transition_to_course",
+        "reply": []
+    },
+    "transition_to_course": {
+        "says": ["Thank you for providing your location.", "Could you please select which best describes you?"],
+        "reply": [
+            {
+                "question": "I know which course I want to take.",
+                "answer": "handleInput",
+                "next": "get_course_format"
+            },
+            {
+                "question": "I don`t know which course suits my needs.",
+                "answer": "handleInput",
+                "next": "find_right_course.json"
+            }
+        ]
+    },
+    "hybrid_online_explanation": {
+        "says": ["In our in-person classes, participants learn all in the information they need to know for their certification in the classroom, no pre-studying required.", "Our hybrid classes require participants to first complete a set of self-lead videos through our online portal before coming to class in-person for a skills assessment.", "Hybrid programs may offer more flexibility as the videos can be completed at any time before the skills assessment, and participants often spend less time in the classroom.", "Lastly, virtual classes are limited to a few topics and are completed entirely online.", "That being said, which course format were you interested in?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "Virtual",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "In-person",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "Hybrid",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "What's the difference?",
+                "answer": "handleInput",
+                "next": "hybrid_online_explanation"
+            }
+        ]
+    },
+    "get_course_format": {
+        "says": ["Thank you. Were you looking to take a online, hybrid, or in-person course?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "Online",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "In-person",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "Hybrid",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "What's the difference?",
+                "answer": "handleInput",
+                "next": "hybrid_online_explanation"
+            }
+        ]
+    }
+
+}

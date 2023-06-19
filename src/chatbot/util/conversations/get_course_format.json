@@ -1,0 +1,28 @@
+{
+    "ice": {
+        "says": ["Thank you. Were you looking to take a virtual, hybrid, or in-person course?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "Virtual",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "In-person",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "Hybrid",
+                "answer": "handleInput",
+                "next": "get_course_name.json"
+            },
+            {
+                "question": "What's the difference?",
+                "answer": "handleInput",
+                "next": "hybrid_online_explanation"
+            }
+        ]
+    }
+}

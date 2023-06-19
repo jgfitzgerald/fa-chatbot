@@ -26,13 +26,13 @@ class Chatbot:
 
         with open(script_path, "r") as file:
             convo = json.load(file)
-            
+
         self.current_token = "ice" # ice is short for "ice breaker", the first convo token in a specific file
         
         substituted_content = self.sub_params(convo, self.current_token, self.user_params)
 
         self.current_convo = copy.deepcopy(substituted_content)
-            
+
         # trucnate conversation to include only ui-required components
         temp = substituted_content[self.current_token].copy()
 
@@ -62,7 +62,7 @@ class Chatbot:
         substituted_str = re.sub(pattern, substitute, data_str)
 
         substituted_data = json.loads(substituted_str)
-            
+        
         if 'response_key' in substituted_data[index]:
             substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.user_params)
 
@@ -83,6 +83,7 @@ class Chatbot:
 
         # load the next conversations
         if answer.endswith('.json'):
+            print('here')
             self.load_convo(answer)
         else:
             self.current_token = answer

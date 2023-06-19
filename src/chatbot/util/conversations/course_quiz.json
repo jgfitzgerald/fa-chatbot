@@ -211,13 +211,12 @@
         ]
     },
     "other": {
-        "question": "Based on your answer, I am unable to give a concrete reccomendation as requirements will vary based on your employer or school. But most employers will require Workplace Standard First Aid.",
-        "answer": "handleInput",
+        "says": ["Based on your answer, I am unable to give a concrete reccomendation as requirements will vary based on your employer or school. But most employers will require Workplace Standard First Aid."],
         "reply": [
             {
                 "question": "Tell me about Workplace Standard First Aid",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
+                "next": "information/{{province}}/"
             },
             {
                 "question": "Register for courses",

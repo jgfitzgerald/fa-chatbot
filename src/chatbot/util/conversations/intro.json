@@ -59,9 +59,9 @@
         "says": ["It looks like we haven't expanded in your area yet, you can sign up for our newsletter and when we open a location in your province we will let you know.", "Would you like to sign up for our newsletter?"],
         "reply": [
             {
-                "question": "Yes, please!",
+                "question": "Yes, take me back to the beginning!",
                 "answer": "handleInput",
-                "next": "sign_up_for_newsletter"
+                "next": "ice"
             },
             {
                 "question": "No, thank you.",

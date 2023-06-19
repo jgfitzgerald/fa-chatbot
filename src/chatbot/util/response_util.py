@@ -8,11 +8,9 @@ def responses_factory(convo, response_key, user_params):
     if response_key == 'location':
         return handle_locations(convo)
     if response_key == 'course':
-        return handle_courses(convo)
+        return handle_courses(convo, user_params)
     if response_key == 'course_date':
         return handle_course_date(convo, user_params)
-    if response_key == 'course_by_format':
-        return handle_course_by_format(convo, user_params)
     else:
         return convo
     
@@ -24,22 +22,6 @@ def handle_locations(convo):
     for location_name in location_names:
         convo["reply"].append({
             "question": location_name,
-            "answer": "handleInput",
-            "next": convo["next"]
-        })
-    
-    del convo["next"]
-    
-    return convo
-    
-def handle_courses(convo):
-    courses = api.get_courses()
-    course_names = [course["name"] for course in courses["data"]]
-    
-    # dynamically populate the reply array
-    for course_name in course_names:
-        convo["reply"].append({
-            "question": course_name,
             "answer": "handleInput",
             "next": convo["next"]
         })
@@ -77,7 +59,7 @@ def handle_course_date(convo, user_params):
 
     return convo
 
-def handle_course_by_format(convo, user_params):
+def handle_courses(convo, user_params):
     courses = api.get_courses()
     course_names = [course["name"] for course in courses["data"] if course["format"] == user_params['format']]
     
@@ -90,4 +72,4 @@ def handle_course_by_format(convo, user_params):
         })
     
     del convo["next"]
-    return None
+    return convo
