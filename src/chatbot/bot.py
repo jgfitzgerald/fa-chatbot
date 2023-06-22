@@ -48,9 +48,10 @@ class Chatbot:
         
     # substitute placeholders in a conversation with user-inputted parameters
     def sub_params(self, convo, index, params):
+
         if 'course' in self.user_params:
-            self.user_params['course_id'] = response_handler.course_map[self.user_params['course']]
-            
+            self.user_params['course_id'] = response_handler.course_map[self.user_params['course']] if self.user_params['course'] in response_handler.course_map else None
+
         def substitute(match):
             key = match.group(1)
             if key in params:
@@ -62,7 +63,7 @@ class Chatbot:
         substituted_str = re.sub(pattern, substitute, data_str)
 
         substituted_data = json.loads(substituted_str)
-        
+
         if 'response_key' in substituted_data[index]:
             substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.user_params)
 
@@ -77,18 +78,20 @@ class Chatbot:
         # Store the response if required
         if 'response_key' in convo:
             self.user_params[convo['response_key']] = input
-        
-        # Get the next token
-        answer = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
+
+        if any(input == reply["question"] for reply in convo["reply"]):
+            answer = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
+        else:
+            answer = convo['next']
 
         # load the next conversations
         if answer.endswith('.json'):
-            print('here')
             self.load_convo(answer)
+            return {"ice": self.current_convo[self.current_token]}
         else:
             self.current_token = answer
-
             # substitute params in the next conversation
-            self.current_convo = self.sub_params(self.current_convo, self.current_token, self.user_params)
+            # make deep copy of convo, in case values get changed in future answers - want to keep the placeholders
+            response = self.sub_params(copy.deepcopy(self.current_convo), self.current_token, self.user_params)
 
-        return {"ice": self.current_convo[self.current_token]}
+            return {"ice": response[self.current_token]}

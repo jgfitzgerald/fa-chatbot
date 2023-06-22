@@ -10,7 +10,7 @@
             {
                 "question": "Pick a different course",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "get_course_format.json"
             }
         ]
     },

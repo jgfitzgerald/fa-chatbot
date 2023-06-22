@@ -10,12 +10,12 @@
             {
                 "question": "Find next course dates at my location.",
                 "answer": "handleInput",
-                "next": "display_course.json"
+                "next": "find-course-dates/display_course.json"
             },
             {
                 "question": "Select a different course.",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "get_course_format.json"
             }
         ]
     }

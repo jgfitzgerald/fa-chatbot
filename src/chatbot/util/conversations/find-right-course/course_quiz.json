@@ -3,14 +3,14 @@
         "says": ["We're happy to hear you want to take your first course with us!", "Let's find the best course for your needs.", "Could you please pick which best describes you?"],
         "reply": [
             {
-                "question": "I am taking a first aid course for my employment.",
+                "question": "I am taking a first aid course for my employment or school.",
                 "answer": "handleInput",
                 "next": "course_by_occupation"
             },
             {
                 "question": "I am taking a first aid course for a different reason.",
                 "answer": "handleInput",
-                "next": "course_for_fun"
+                "next": "different_reason"
             }
         ]
     },
@@ -55,17 +55,12 @@
         ]
     },
     "workplace_standard": {
-        "says": ["Based on your answer. I would reccomend Workplace Standard First Aid."],
+        "says": ["Based on your answer. I would reccomend Workplace Standard First Aid.", "Workplace Standard First Aid covers the following topics: Emergency scene management and PPE, Cardiopulmonary Resuscitation (CPR) and Automated external defibrillators (AED), Heart, breathing and stroke related emergencies, Wound care, head, neck, spine injuries, Environmental and sudden medical emergencies, Poisons", "This certification is valid for 3 years and is available in Hybrid or In-person format."],
         "reply": [
             {
-                "question": "Tell me about Workplace Standard First Aid",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
-            },
-            {
-                "question": "Register for course",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -80,17 +75,12 @@
         ]
     },
     "emergency_fa": {
-        "says": ["Based on your answer. I would reccomend Emergency First Aid."],
+        "says": ["Based on your answer. I would reccomend Emergency First Aid.", "Emergency First Aid covers topics such as Emergency Scene Management and PPE, Cardiopulmonary Resuscitation (CPR), Automated external defibrillators (AED), Heart, breathing and stroke related emergencies, Wound care, head, neck, and spine injuries", "This certification is valid for 3 years and is available in Hybrid or In-person format."],
         "reply": [
             {
-                "question": "Tell me about Emergency First Aid",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
-            },
-            {
-                "question": "Register for course",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -105,17 +95,12 @@
         ]
     },
     "cpr_aed": {
-        "says": ["Based on your answer. I would reccomend CPR/AED Level C."],
+        "says": ["Based on your answer. I would reccomend CPR/AED Level C.", "CPR/AED Level C covers topics such as Emergency Scene Management and PPE, Cardiopulmonary Resuscitation (CPR) and Automated external defibrillators (AED), Heart, breathing and stroke related emergencies", "This certification is valid for 3 years and is available in Hybrid or In-person format."],
         "reply": [
             {
-                "question": "Tell me about CPR/AED Level C",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
-            },
-            {
-                "question": "Register for course",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -130,19 +115,12 @@
         ]
     },
     "medical_first_responder": {
-        "says": ["Based on your answer. I would reccomend Medical First Responder."],
-        "response_key": "course",
-        "next": "hybrid_or_online",
+        "says": ["Based on your answer. I would reccomend Medical First Responder.", "This certification is valid for 3 years and is available in Hybrid or In-person format."],
         "reply": [
             {
-                "question": "Tell me about Medical First Responder",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
-            },
-            {
-                "question": "Register for course",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -157,19 +135,12 @@
         ]
     },
     "marine": {
-        "says": ["Based on your answer. I would reccomend Marine Advanced or Marine Basic First Aid."],
-        "response_key": "course",
-        "next": "hybrid_or_online",
+        "says": ["Based on your answer. I would reccomend Marine Advanced or Marine Basic First Aid.", "Topics covered: Marine scene management, PPE, Cardiopulmonary Resuscitation (CPR) and Automated external defibrillators (AED), Heart, breathing and stroke related emergencies, Wound care, head, neck, spine injuries", "This certification is available in an In-person format only."],
         "reply": [
             {
-                "question": "Tell me about Marine Basic First Aid",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
-            },
-            {
-                "question": "Register for course",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -185,18 +156,11 @@
     },
     "variable": {
         "says": ["Based on your answer, I am unable to give a concrete reccomendation as requirements will vary based on your employer or school. Most employers will require Workplace Standard First Aid, but I would reccomend asking your supervisor for specific requirements."],
-        "response_key": "course",
-        "next": "hybrid_or_online",
         "reply": [
             {
-                "question": "Tell me about Workplace Standard First Aid",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information{{province}}/"
-            },
-            {
-                "question": "Register for courses",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -214,14 +178,9 @@
         "says": ["Based on your answer, I am unable to give a concrete reccomendation as requirements will vary based on your employer or school. But most employers will require Workplace Standard First Aid."],
         "reply": [
             {
-                "question": "Tell me about Workplace Standard First Aid",
+                "question": "Find next course dates at my location",
                 "answer": "handleInput",
-                "next": "information/{{province}}/"
-            },
-            {
-                "question": "Register for courses",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                "next": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
@@ -232,6 +191,21 @@
                 "question": "Contact Us",
                 "answer": "handleInput",
                 "next": "contact_us.json"
+            }
+        ]
+    },
+    "different_reason": {
+        "says": ["Based on your answer, I am unable to give a concrete reccomendation for the best course for your specific needs. We invite you to contact us so we can better understand you situation and pick out the best course for you!"],
+        "reply": [
+            {
+                "question": "Contact Us",
+                "answer": "handleInput",
+                "next": "contact_us.json"
+            },
+            {
+                "question": "Restart the conversation",
+                "answer": "handleInput",
+                "next": "intro.json"
             }
         ]
     }

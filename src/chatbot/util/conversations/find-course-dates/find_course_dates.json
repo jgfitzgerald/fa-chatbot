@@ -1,12 +1,6 @@
 {
     "ice": {
-        "says": ["I'd be happy to help you find the next course dates in your area.", "Which location were you looking for?"],
-        "response_key": "location",
-        "next": "transition_to_course",
-        "reply": []
-    },
-    "transition_to_course": {
-        "says": ["Thank you for providing your location.", "Could you please select which best describes you?"],
+        "says": ["I'd be happy to help you find the next course dates in your area.", "Could you please select which best describes you?"],
         "reply": [
             {
                 "question": "I know which course I want to take.",
@@ -16,7 +10,7 @@
             {
                 "question": "I don`t know which course suits my needs.",
                 "answer": "handleInput",
-                "next": "find_right_course.json"
+                "next": "find-right-course/find_right_course.json"
             }
         ]
     },
@@ -27,17 +21,17 @@
             {
                 "question": "Virtual",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "In-person",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "Hybrid",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "What's the difference?",
@@ -53,20 +47,20 @@
             {
                 "question": "Online",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "In-person",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "Hybrid",
                 "answer": "handleInput",
-                "next": "get_course_name.json"
+                "next": "find-course-dates/get_course_name.json"
             },
             {
-                "question": "What's the difference?",
+                "question": "What`s the difference?",
                 "answer": "handleInput",
                 "next": "hybrid_online_explanation"
             }

@@ -10,7 +10,7 @@
             {
                 "question": "Search for a different course.",
                 "answer": "handleInput",
-                "next": "find_course_dates.json"
+                "next": "find-course-dates/find_course_dates.json"
             }
         ]
     }

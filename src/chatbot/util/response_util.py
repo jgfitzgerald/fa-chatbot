@@ -3,10 +3,16 @@ import json, os
 
 location_map = {location["name"]: location["id"] for location in api.get_locations()["data"]}
 course_map = {course["name"]: course["id"] for course in api.get_courses()["data"]}
+
+locations_by_province = {
+    "New Brunswick": ["LOAI FRANCHISE", "Life Start Saint John", "KHRYSPN FRANCHISE"],
+    "Nova Scotia": ["Halifax", "Lisa Test", "testFranchise01", "testName001"]
+}
+
 def responses_factory(convo, response_key, user_params):
 
     if response_key == 'location':
-        return handle_locations(convo)
+        return handle_locations(convo, user_params)
     if response_key == 'course':
         return handle_courses(convo, user_params)
     if response_key == 'course_date':
@@ -14,9 +20,9 @@ def responses_factory(convo, response_key, user_params):
     else:
         return convo
     
-def handle_locations(convo):
+def handle_locations(convo, user_params):
     locations = api.get_locations()
-    location_names = [location["name"] for location in locations["data"]]
+    location_names = locations_by_province[user_params['province']]
     
     # dynamically populate the reply array
     for location_name in location_names:
@@ -39,7 +45,7 @@ def handle_course_date(convo, user_params):
     earliest_classes = classes[user_params['index']:user_params['index']+3]
     
     if not earliest_classes:
-        path = os.path.join(os.path.dirname(__file__), "conversations", "no_courses.json")
+        path = os.path.join(os.path.dirname(__file__), "conversations", "find-course-dates/no_courses.json")
         user_params['index'] = 0
         with open(path, "r") as file:
             return json.load(file)["ice"]
@@ -62,7 +68,7 @@ def handle_course_date(convo, user_params):
 def handle_courses(convo, user_params):
     courses = api.get_courses()
     course_names = [course["name"] for course in courses["data"] if course["format"] == user_params['format']]
-    
+
     # dynamically populate the reply array
     for course_name in course_names:
         convo["reply"].append({

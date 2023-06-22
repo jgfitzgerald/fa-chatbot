@@ -6,7 +6,7 @@
             {
                 "question": "New Brunswick",
                 "answer": "handleInput",
-                "next": "select_task"
+                "next": "get_location"
             },
             {
                 "question": "Alberta",
@@ -16,7 +16,7 @@
             {
                 "question": "Nova Scotia",
                 "answer": "handleInput",
-                "next": "select_task"
+                "next": "get_location"
             },
             {
                 "question": "PEI",
@@ -59,9 +59,9 @@
         "says": ["It looks like we haven't expanded in your area yet, you can sign up for our newsletter and when we open a location in your province we will let you know.", "Would you like to sign up for our newsletter?"],
         "reply": [
             {
-                "question": "Yes, take me back to the beginning!",
+                "question": "Yes, please!",
                 "answer": "handleInput",
-                "next": "ice"
+                "next": "sign_up_for_newsletter"
             },
             {
                 "question": "No, thank you.",
@@ -75,9 +75,9 @@
         "says": ["Click <a href=\"https://www.lifestarttraining.com/\">here</a> to sign up for our newsletter!", "Is there anything else I can help you with today?"],
         "reply": [
             {
-                "question": "Yes",
+                "question": "Yes, take me back to the beginning!",
                 "answer": "handleInput",
-                "next": "transition_to_ice"
+                "next": "ice"
             },
             {
                 "question": "No",
@@ -103,13 +103,19 @@
             {
                 "question": "I need help choosing the right course",
                 "answer": "handleInput",
-                "next": "find_right_course.json"
+                "next": "find-right-course/find_right_course.json"
             },
             {
                 "question": "I need help finding the next course dates in my area",
                 "answer": "handleInput",
-                "next": "find_course_dates.json"
+                "next": "find-course-dates/find_course_dates.json"
             }
         ]
+    },
+    "get_location": {
+        "says": ["Thank you!", "Could you please select your preferred location?"],
+        "response_key": "location",
+        "reply": [],
+        "next": "select_task"
     }
 }
