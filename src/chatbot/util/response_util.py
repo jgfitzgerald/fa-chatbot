@@ -48,7 +48,12 @@ def handle_course_date(convo, user_params):
         path = os.path.join(os.path.dirname(__file__), "conversations", "find-course-dates/no_courses.json")
         user_params['index'] = 0
         with open(path, "r") as file:
-            return json.load(file)["ice"]
+            convo = json.loads(file.read())
+        user_params['current_convo'] = convo
+        user_params['answer'] = "no_courses.json"
+        print(user_params)
+        print('here')
+        return convo["ice"]
 
     for class_info in earliest_classes:
 
@@ -68,7 +73,7 @@ def handle_course_date(convo, user_params):
 def handle_courses(convo, user_params):
     courses = api.get_courses()
     course_names = [course["name"] for course in courses["data"] if course["format"] == user_params['format']]
-
+    
     # dynamically populate the reply array
     for course_name in course_names:
         convo["reply"].append({

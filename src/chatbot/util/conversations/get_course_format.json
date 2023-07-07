@@ -1,15 +1,15 @@
 {
     "ice": {
-        "says": ["Were you looking to take a virtual, hybrid, or in-person course?"],
+        "says": ["Were you looking to take a online, hybrid, or in-person course?"],
         "response_key": "format",
         "reply": [
             {
-                "question": "Virtual",
+                "question": "Online",
                 "answer": "handleInput",
                 "next": "find-course-dates/get_course_name.json"
             },
             {
-                "question": "In-person",
+                "question": "In-Person",
                 "answer": "handleInput",
                 "next": "find-course-dates/get_course_name.json"
             },
@@ -30,12 +30,12 @@
         "response_key": "format",
         "reply": [
             {
-                "question": "Virtual",
+                "question": "Online",
                 "answer": "handleInput",
                 "next": "find-course-dates/get_course_name.json"
             },
             {
-                "question": "In-person",
+                "question": "In-Person",
                 "answer": "handleInput",
                 "next": "find-course-dates/get_course_name.json"
             },

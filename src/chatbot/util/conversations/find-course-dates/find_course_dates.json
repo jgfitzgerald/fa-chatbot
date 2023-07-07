@@ -8,7 +8,7 @@
                 "next": "get_course_format"
             },
             {
-                "question": "I don`t know which course suits my needs.",
+                "question": "I don't know which course suits my needs.",
                 "answer": "handleInput",
                 "next": "find-right-course/find_right_course.json"
             }
@@ -19,7 +19,7 @@
         "response_key": "format",
         "reply": [
             {
-                "question": "Virtual",
+                "question": "Online",
                 "answer": "handleInput",
                 "next": "find-course-dates/get_course_name.json"
             },
@@ -60,7 +60,7 @@
                 "next": "find-course-dates/get_course_name.json"
             },
             {
-                "question": "What`s the difference?",
+                "question": "What's the difference?",
                 "answer": "handleInput",
                 "next": "hybrid_online_explanation"
             }

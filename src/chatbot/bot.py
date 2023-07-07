@@ -9,11 +9,11 @@ class Chatbot:
         self.id = uuid.uuid4()
         
         # empty map to hold user params
-        self.user_params = {}
-        self.user_params['index'] = 0
+        self.chat_params = {}
+        self.chat_params['index'] = 0
         
-        self.current_convo = None
-        self.current_token = None
+        self.chat_params['current_convo'] = None
+        self.chat_params['current_token'] = None
         
     # initiates the first conversation, sends the first message
     def run(self):
@@ -27,14 +27,14 @@ class Chatbot:
         with open(script_path, "r") as file:
             convo = json.load(file)
 
-        self.current_token = "ice" # ice is short for "ice breaker", the first convo token in a specific file
-        
-        substituted_content = self.sub_params(convo, self.current_token, self.user_params)
 
-        self.current_convo = copy.deepcopy(substituted_content)
+        self.chat_params['current_token'] = "ice" # ice is short for "ice breaker", the first convo token in a specific file
+        
+        substituted_content = self.sub_params(convo, self.chat_params['current_token'], self.chat_params)
+        self.chat_params['current_convo'] = copy.deepcopy(substituted_content)
 
         # trucnate conversation to include only ui-required components
-        temp = substituted_content[self.current_token].copy()
+        temp = substituted_content[self.chat_params['current_token']].copy()
 
         if 'response_key' in temp:
             del temp['response_key']
@@ -44,13 +44,14 @@ class Chatbot:
             del item["next"]
             
         # return trucnated conversation
-        return {"id": self.id, self.current_token: temp}
+        return {"id": self.id, self.chat_params['current_token']: temp}
         
     # substitute placeholders in a conversation with user-inputted parameters
     def sub_params(self, convo, index, params):
 
-        if 'course' in self.user_params:
-            self.user_params['course_id'] = response_handler.course_map[self.user_params['course']] if self.user_params['course'] in response_handler.course_map else None
+        if 'course' in self.chat_params:
+            self.chat_params['course_id'] = response_handler.course_map[self.chat_params['course']] if self.chat_params['course'] in response_handler.course_map else None
+
 
         def substitute(match):
             key = match.group(1)
@@ -65,7 +66,7 @@ class Chatbot:
         substituted_data = json.loads(substituted_str)
 
         if 'response_key' in substituted_data[index]:
-            substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.user_params)
+            substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.chat_params)
 
         return substituted_data
     
@@ -73,25 +74,27 @@ class Chatbot:
     def chat_input(self, input):
 
         # get the current conversation
-        convo = self.current_convo[self.current_token]
+        convo = self.chat_params['current_convo'][self.chat_params['current_token']]
 
         # Store the response if required
         if 'response_key' in convo:
-            self.user_params[convo['response_key']] = input
+            self.chat_params[convo['response_key']] = input
+
+        # TODO sub params here?? 
 
         if any(input == reply["question"] for reply in convo["reply"]):
-            answer = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
+            self.chat_params['answer'] = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
         else:
-            answer = convo['next']
+            self.chat_params['answer'] = convo['next']
 
         # load the next conversations
-        if answer.endswith('.json'):
-            self.load_convo(answer)
-            return {"ice": self.current_convo[self.current_token]}
+        if self.chat_params['answer'].endswith('.json'):
+            self.load_convo(self.chat_params['answer'])
+
+            return {"ice": self.chat_params['current_convo'][self.chat_params['current_token']]}
         else:
-            self.current_token = answer
+            self.chat_params['current_token'] = self.chat_params['answer']
             # substitute params in the next conversation
             # make deep copy of convo, in case values get changed in future answers - want to keep the placeholders
-            response = self.sub_params(copy.deepcopy(self.current_convo), self.current_token, self.user_params)
-
-            return {"ice": response[self.current_token]}
+            self.chat_params['current_convo'] = self.sub_params(copy.deepcopy(self.chat_params['current_convo']), self.chat_params['current_token'], self.chat_params)
+            return {"ice": self.chat_params['current_convo'][self.chat_params['current_token']]}

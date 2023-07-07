@@ -4,7 +4,7 @@
         "response_key": "course",
         "reply": [
             {
-                "question": "The course I want isn`t listed",
+                "question": "The course I want isn't listed",
                 "answer": "handleInput",
                 "next": "not_listed"
             }

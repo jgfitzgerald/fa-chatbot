@@ -141,19 +141,19 @@ function Bubbles(container, self, options) {
       turn.reply.reverse()
       for (var i = 0; i < turn.reply.length; i++) {
         ;(function(el, count) {
+          var escapedAnswer = el.answer.replace(/'/g, "\\'");
+          var escapedQuestion = el.question.replace(/'/g, "\\'");
           questionsHTML +=
             '<span class="bubble-button" style="animation-delay: ' +
-            animationTime / 2 * count +
+            (animationTime / 2) * count +
             'ms" onClick="' +
             self +
             ".answer('" +
-            el.answer +
-            "', '" +
+            escapedAnswer + "', '" +
+            escapedQuestion + "');this.classList.add('bubble-pick')\">" +
             el.question +
-            "');this.classList.add('bubble-pick')\">" +
-            el.question +
-            "</span>"
-        })(turn.reply[i], i)
+            '</span>';
+        })(turn.reply[i], i);
       }
     }
     orderBubbles(turn.says, function() {

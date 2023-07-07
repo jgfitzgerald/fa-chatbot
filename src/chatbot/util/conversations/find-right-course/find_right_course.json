@@ -18,20 +18,32 @@
         "says": ["New Brunswick now requires those renewing their first aid certifications to redo their first aid course in its entirety every three years.", "Which course were you looking to renew?"],
         "response_key": "course",
         "next": "get_course",
-        "reply": []
+        "reply": [
+            {
+                "question": "My course isn't listed",
+                "answer": "handleInput",
+                "next": "not_listed"
+            }
+        ]
     },
     "Nova Scotia recert": {
-        "says": ["Which course were you looking to renew?"],
+        "says": ["We reccomend that those recertifying redo their first aid course in its entirety as some employers in Nova Scotia may not recognize recertifications. Which course were you looking to renew?"],
         "response_key": "course",
-        "next": "get_course",
-        "reply": []
+        "reply": [
+            {
+                "question": "My course isn't listed",
+                "answer": "handleInput",
+                "next": "not_listed"
+            }
+        ],
+        "next": "get_course"
     },
     "hybrid_or_online": {
         "says": ["Great to hear that you want to renew your certification with us.", "Were you looking to renew your certification via a hybrid format or a completely in-person format?"],
         "response_key": "format",
         "reply": [
             {
-                "question": "In-person",
+                "question": "In-Person",
                 "answer": "handleInput",
                 "next": "{{province}} recert"
             },
@@ -41,7 +53,7 @@
                 "next": "{{province}} recert"
             },
             {
-                "question": "What`s the difference?",
+                "question": "What's the difference?",
                 "answer": "handleInput",
                 "next": "format_explanation"
             }
@@ -52,7 +64,7 @@
         "response_key": "format",
         "reply": [
             {
-                "question": "In-person",
+                "question": "In-Person",
                 "answer": "handleInput",
                 "next": "{{province}} recert"
             },
@@ -62,7 +74,7 @@
                 "next": "{{province}} recert"
             },
             {
-                "question": "What`s the difference?",
+                "question": "What's the difference?",
                 "answer": "handleInput",
                 "next": "format_explanation"
             }
@@ -98,5 +110,20 @@
         "response_key": "course",
         "next": "get_course",
         "reply": []
+    },
+    "not_listed": {
+        "says": ["Sorry to hear that. Some certifications may not be offered in a {{format}} format. You can either reselect your course format, or I can get you in contact with a human representative who will assist you."],
+        "reply": [
+            {
+                "question": "Select a new format",
+                "answer": "handleInput",
+                "next": "{{province}} recert"
+            },
+            {
+                "question": "Contact us",
+                "answer": "handleInput",
+                "next": "contact_us.json"
+            }
+        ]
     }
 }
