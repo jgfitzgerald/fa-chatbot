@@ -334,3 +334,17 @@ a {
 #chat > div > div.bubble-typing {
   margin-left: 38px;
 }
+
+body {
+  background: #dcdde0;
+}
+.bubble-container {
+  min-height: 40vh;
+  min-width: 100%;
+  max-height: 80vh;
+  overflow: visible;
+}
+.bubble-container .input-wrap textarea {
+  margin: 0;
+  width: calc(100% - 30px);
+}

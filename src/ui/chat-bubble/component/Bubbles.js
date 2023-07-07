@@ -1,14 +1,39 @@
 // core function
 function Bubbles(container, self, options) {
   // options
-  options = typeof options !== "undefined" ? options : {}
+  clientId = null;
+  options = {
+    responseCallbackFn: function(content) {
+      requestBody = {
+        "id": clientId,
+        "input": content
+      };
+
+      fetch('http://localhost:5000/app/chat', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+      })
+      .then(response => response.json())
+      .then(data => {
+          chatWindow.talk(data);
+      })
+      .catch(error => {
+          // Handle any errors that occur during the API request
+          console.error('Error fetching conversation flow:', error);
+      });
+    }
+  }
   animationTime = options.animationTime || 200 // how long it takes to animate chat bubble, also set in CSS
   typeSpeed = options.typeSpeed || 5 // delay per character, to simulate the machine "typing"
   widerBy = options.widerBy || 2 // add a little extra width to bubbles to make sure they don't break
   sidePadding = options.sidePadding || 6 // padding on both sides of chat bubbles
   recallInteractions = options.recallInteractions || 0 // number of interactions to be remembered and brought back upon restart
   inputCallbackFn = options.inputCallbackFn || false // should we display an input field?
-  responseCallbackFn = options.responseCallbackFn || false // is there a callback function for when a user clicks on a bubble button
+  responseCallbackFn =  options.responseCallbackFn || false // is there a callback function for when a user clicks on a bubble button
+  // this function is called after the user sends a message
 
   var standingAnswer = "ice" // remember where to restart convo if interrupted
 
@@ -170,8 +195,7 @@ function Bubbles(container, self, options) {
     }
     _convo[key] !== undefined
       ? (this.reply(_convo[key]), (standingAnswer = key))
-      : (typeof responseCallbackFn === 'function' ? responseCallbackFn({input: key,convo: _convo,standingAnswer: standingAnswer}, key) : func(key, content))
-
+      : (typeof responseCallbackFn === 'function' ? responseCallbackFn(content) : func(key, content))
     // add re-generated user picks to the history stack
     if (_convo[key] !== undefined && content !== undefined) {
       interactionsSave(

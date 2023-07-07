@@ -19,22 +19,6 @@
   <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/reply.css" />
   <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/typing.css" />
   <link rel="stylesheet" media="all" href="./chat-bubble/component/styles/input.css" />
-
-  <style>
-    body {
-      background: #dcdde0;
-    }
-    .bubble-container {
-      min-height: 40vh;
-      min-width: 100%;
-      max-height: 80vh;
-      overflow: visible;
-    }
-    .bubble-container .input-wrap textarea {
-      margin: 0;
-      width: calc(100% - 30px);
-    }
-  </style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -69,10 +53,7 @@
       </form>      
     </div>-->
   </div>
-  
-  
-  
-  
+
 </div>
 <!-- partial -->
   <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
@@ -81,69 +62,5 @@
   <script  src="./script.js"></script>
   <!-- import the JavaScript file -->
   <script src="./chat-bubble/component/Bubbles.js"></script>
-  <script>
-
-    var clientId = '';
-
-    // initialize by constructing a named function./chat-bubble.
-    var chatWindow = new Bubbles(
-      document.getElementById("chat"), // ./chat-bubble.passing HTML container element./chat-bubble.
-      "chatWindow", // ./chat-bubble.and name of the function as a parameter
-    );
-
-    var chatStarted = false; // prevents first message from sending multiple times
-    var chatCircle = document.getElementById("chat-circle");
-    chatCircle.addEventListener("click", sendFirstMessage);
-
-    function sendFirstMessage() {
-  // Make a POST request to fetch the conversation flow from the API
-      if (!chatStarted) {
-        fetch('http://localhost:5000/app/start', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Assign the conversation flow JSON to the convo variable
-            var convo = data;
-            clientId = convo.id;
-            delete convo.id;
-            chatStarted = true;
-
-            chatWindow.talk(convo);
-        })
-        .catch(error => {
-            // Handle any errors that occur during the API request
-            console.error('Error fetching conversation flow:', error);
-        });
-      }
-    }
-
-      // this function is called after the user sends a message
-      var handleInput = function(content) {
-        requestBody = {
-          "id": clientId,
-          "input": content
-        };
-
-        fetch('http://localhost:5000/app/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestBody)
-        })
-        .then(response => response.json())
-        .then(data => {
-            chatWindow.talk(data);
-        })
-        .catch(error => {
-            // Handle any errors that occur during the API request
-            console.error('Error fetching conversation flow:', error);
-        });
-      }
-  </script>
 </body>
 </html>
