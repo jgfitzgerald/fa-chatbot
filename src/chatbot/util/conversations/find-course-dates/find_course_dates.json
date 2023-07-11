@@ -4,13 +4,13 @@
         "reply": [
             {
                 "question": "I know which course I want to take.",
-                "answer": "handleInput",
-                "next": "get_course_format"
+                
+                "answer": "get_course_format"
             },
             {
                 "question": "I don't know which course suits my needs.",
-                "answer": "handleInput",
-                "next": "find-right-course/find_right_course.json"
+                
+                "answer": "find-right-course/find_right_course.json"
             }
         ]
     },
@@ -20,23 +20,23 @@
         "reply": [
             {
                 "question": "Online",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "In-person",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "Hybrid",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "What's the difference?",
-                "answer": "handleInput",
-                "next": "hybrid_online_explanation"
+                
+                "answer": "hybrid_online_explanation"
             }
         ]
     },
@@ -46,23 +46,23 @@
         "reply": [
             {
                 "question": "Online",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "In-person",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "Hybrid",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "What's the difference?",
-                "answer": "handleInput",
-                "next": "hybrid_online_explanation"
+                
+                "answer": "hybrid_online_explanation"
             }
         ]
     }

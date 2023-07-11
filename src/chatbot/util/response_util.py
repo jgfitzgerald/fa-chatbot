@@ -28,11 +28,11 @@ def handle_locations(convo, user_params):
     for location_name in location_names:
         convo["reply"].append({
             "question": location_name,
-            "answer": "handleInput",
-            "next": convo["next"]
+            
+            "answer": convo["answer"]
         })
     
-    del convo["next"]
+    del convo["answer"]
     
     return convo
 
@@ -62,8 +62,8 @@ def handle_course_date(convo, user_params):
 
             convo["reply"].append({
                 "question": msg,
-                "answer": "handleInput",
-                "next": convo["next"]
+                
+                "answer": convo["answer"]
             })
         
     user_params['index'] = user_params['index'] + 3
@@ -78,9 +78,9 @@ def handle_courses(convo, user_params):
     for course_name in course_names:
         convo["reply"].append({
             "question": course_name,
-            "answer": "handleInput",
-            "next": convo["next"]
+            
+            "answer": convo["answer"]
         })
     
-    del convo["next"]
+    del convo["answer"]
     return convo

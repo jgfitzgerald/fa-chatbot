@@ -5,23 +5,23 @@
         "reply": [
             {
                 "question": "Online",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "In-Person",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "Hybrid",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "What's the difference?",
-                "answer": "handleInput",
-                "next": "hybrid_online_explanation"
+                
+                "answer": "hybrid_online_explanation"
             }
         ]
     },
@@ -31,23 +31,23 @@
         "reply": [
             {
                 "question": "Online",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "In-Person",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "Hybrid",
-                "answer": "handleInput",
-                "next": "find-course-dates/get_course_name.json"
+                
+                "answer": "find-course-dates/get_course_name.json"
             },
             {
                 "question": "What's the difference?",
-                "answer": "handleInput",
-                "next": "hybrid_online_explanation"
+                
+                "answer": "hybrid_online_explanation"
             }
         ]
     }

@@ -38,10 +38,6 @@ class Chatbot:
 
         if 'response_key' in temp:
             del temp['response_key']
-
-        # delete each 'next' item as we don't need to return it
-        for item in temp["reply"]:
-            del item["next"]
             
         # return trucnated conversation
         return {"id": self.id, self.chat_params['current_token']: temp}
@@ -83,9 +79,9 @@ class Chatbot:
         # TODO sub params here?? 
 
         if any(input == reply["question"] for reply in convo["reply"]):
-            self.chat_params['answer'] = next((reply["next"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
+            self.chat_params['answer'] = next((reply["answer"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
         else:
-            self.chat_params['answer'] = convo['next']
+            self.chat_params['answer'] = convo['answer']
 
         # load the next conversations
         if self.chat_params['answer'].endswith('.json'):

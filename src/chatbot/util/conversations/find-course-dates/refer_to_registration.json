@@ -4,13 +4,13 @@
         "reply": [
             {
                 "question": "Register for this course",
-                "answer": "handleInput",
-                "next": "register"
+                
+                "answer": "register"
             },
             {
                 "question": "Pick a different course",
-                "answer": "handleInput",
-                "next": "get_course_format.json"
+                
+                "answer": "get_course_format.json"
             }
         ]
     },
@@ -19,13 +19,13 @@
         "reply": [
             {
                 "question": "Yes",
-                "answer": "handleInput",
-                "next": "select_task.json"
+                
+                "answer": "select_task.json"
             },
             {
                 "question": "No",
-                "answer": "handleInput",
-                "next": "outro.json"
+                
+                "answer": "outro.json"
             }
         ]
     }

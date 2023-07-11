@@ -5,53 +5,53 @@
         "reply": [
             {
                 "question": "New Brunswick",
-                "answer": "handleInput",
-                "next": "get_location"
+                
+                "answer": "get_location"
             },
             {
                 "question": "'Alberta",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "Nova Scotia",
-                "answer": "handleInput",
-                "next": "get_location"
+                
+                "answer": "get_location"
             },
             {
                 "question": "PEI",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "Newfoundland/Labrador",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "Manitoba",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "Ontario",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "British Colombia",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "Quebec",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             },
             {
                 "question": "Saskachewan",
-                "answer": "handleInput",
-                "next": "service_not_available"
+                
+                "answer": "service_not_available"
             }
         ]
     },
@@ -60,13 +60,13 @@
         "reply": [
             {
                 "question": "Yes, please!",
-                "answer": "handleInput",
-                "next": "sign_up_for_newsletter"
+                
+                "answer": "sign_up_for_newsletter"
             },
             {
                 "question": "No, thank you.",
-                "answer": "handleInput",
-                "next": "outro.json"
+                
+                "answer": "outro.json"
             }
 
         ]
@@ -76,13 +76,13 @@
         "reply": [
             {
                 "question": "Yes, take me back to the beginning!",
-                "answer": "handleInput",
-                "next": "ice"
+                
+                "answer": "ice"
             },
             {
                 "question": "No",
-                "answer": "handleInput",
-                "next": "outro.json"
+                
+                "answer": "outro.json"
             }
 
         ]
@@ -92,8 +92,8 @@
         "reply": [
             {
                 "question": "Start over",
-                "answer": "handleInput",
-                "next": "ice"
+                
+                "answer": "ice"
             }
         ]
     },
@@ -102,13 +102,13 @@
         "reply": [
             {
                 "question": "I need help choosing the right course",
-                "answer": "handleInput",
-                "next": "find-right-course/find_right_course.json"
+                
+                "answer": "find-right-course/find_right_course.json"
             },
             {
                 "question": "I need help finding the next course dates in my area",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             }
         ]
     },
@@ -116,6 +116,6 @@
         "says": ["Thank you!", "Could you please select your preferred location?"],
         "response_key": "location",
         "reply": [],
-        "next": "select_task"
+        "answer": "select_task"
     }
 }

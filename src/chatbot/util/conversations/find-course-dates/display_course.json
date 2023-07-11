@@ -2,24 +2,24 @@
     "ice": {
         "says": ["Great! I'm finding the next course dates in {{location}} now.", "Do any of these dates work for you?"],
         "response_key": "course_date",
-        "next": "find-course-dates/refer_to_registration.json",
+        "answer": "find-course-dates/refer_to_registration.json",
         "reply": [
             {
                 "question": "None of the dates work for me.",
-                "answer": "handleInput",
-                "next": "next_dates"
+                
+                "answer": "next_dates"
             }
         ]
     },
     "next_dates": {
         "says": ["No problem, I'll get the next dates at {{location}} for you.", "Do any of these dates work for you?"],
         "response_key": "course_date",
-        "next": "find-course-dates/refer_to_registration.json",
+        "answer": "find-course-dates/refer_to_registration.json",
         "reply": [
             {
                 "question": "None of the dates work for me.",
-                "answer": "handleInput",
-                "next": "next_dates"
+                
+                "answer": "next_dates"
             }
         ]
     }

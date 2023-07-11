@@ -4,8 +4,8 @@
         "reply": [
             {
                 "question": "Select a different course.",
-                "answer": "handleInput",
-                "next": "init_course_find.json"
+                
+                "answer": "init_course_find.json"
             }
         ]
     }

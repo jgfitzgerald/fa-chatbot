@@ -4,13 +4,13 @@
         "reply": [
             {
                 "question": "I am taking a first aid course for my employment or school.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "I am taking a first aid course for a different reason.",
-                "answer": "handleInput",
-                "next": "different_reason"
+                
+                "answer": "different_reason"
             }
         ]
     },
@@ -19,38 +19,38 @@
         "reply": [
             {
                 "question": "Childcare, Personal Support Worker, Massage Therapist, RCMP",
-                "answer": "handleInput",
-                "next": "workplace_standard"
+                
+                "answer": "workplace_standard"
             },
             {
                 "question": "School Bus Driver, School Education Teacher",
-                "answer": "handleInput",
-                "next": "emergency_fa"
+                
+                "answer": "emergency_fa"
             },
             {
                 "question": "Dental Hygenist, Nurse",
-                "answer": "handleInput",
-                "next": "cpr_aed"
+                
+                "answer": "cpr_aed"
             },
             {
                 "question": "Firefighter, Paramedic",
-                "answer": "handleInput",
-                "next": "medical_first_responder"
+                
+                "answer": "medical_first_responder"
             },
             {
                 "question": "Fisherman, Marine Transport",
-                "answer": "handleInput",
-                "next": "marine"
+                
+                "answer": "marine"
             },
             {
                 "question": "Nursing Student, Pharmacist",
-                "answer": "handleInput",
-                "next": "variable"
+                
+                "answer": "variable"
             },
             {
                 "question": "Other",
-                "answer": "handleInput",
-                "next": "other"
+                
+                "answer": "other"
             }
         ]
     },
@@ -59,18 +59,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -79,18 +79,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -99,18 +99,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -119,18 +119,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -139,18 +139,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -159,18 +159,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -179,18 +179,18 @@
         "reply": [
             {
                 "question": "Find next course dates at my location",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Pick a different occupation.",
-                "answer": "handleInput",
-                "next": "course_by_occupation"
+                
+                "answer": "course_by_occupation"
             },
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
@@ -199,13 +199,13 @@
         "reply": [
             {
                 "question": "Contact Us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             },
             {
                 "question": "Restart the conversation",
-                "answer": "handleInput",
-                "next": "intro.json"
+                
+                "answer": "intro.json"
             }
         ]
     }

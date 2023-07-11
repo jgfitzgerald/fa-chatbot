@@ -4,8 +4,8 @@
         "reply": [
             {
                 "question": "Start over",
-                "answer": "handleInput",
-                "next": "intro.json"
+                
+                "answer": "intro.json"
             }
         ]
     }

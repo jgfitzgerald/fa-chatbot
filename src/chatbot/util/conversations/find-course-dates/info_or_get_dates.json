@@ -4,18 +4,18 @@
         "reply": [
             {
                 "question": "Get information on {{course}}",
-                "answer": "handleInput",
-                "next": "information/{{province}}/{{course_id}}.json"
+                
+                "answer": "information/{{province}}/{{course_id}}.json"
             },
             {
                 "question": "Find next course dates at my location.",
-                "answer": "handleInput",
-                "next": "find-course-dates/display_course.json"
+                
+                "answer": "find-course-dates/display_course.json"
             },
             {
                 "question": "Select a different course.",
-                "answer": "handleInput",
-                "next": "get_course_format.json"
+                
+                "answer": "get_course_format.json"
             }
         ]
     }

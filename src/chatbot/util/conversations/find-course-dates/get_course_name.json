@@ -5,26 +5,26 @@
         "reply": [
             {
                 "question": "The course I want isn't listed",
-                "answer": "handleInput",
-                "next": "not_listed"
+                
+                "answer": "not_listed"
             }
         ],
-        "next": "find-course-dates/info_or_get_dates.json"
+        "answer": "find-course-dates/info_or_get_dates.json"
     },
     "not_listed": {
         "says": ["Sorry to hear that. I can get you in contact with a representative, or you can select a different course."],
         "reply": [
             {
                 "question": "Select a different course.",
-                "answer": "handleInput",
-                "next": "get_course_format.json"
+                
+                "answer": "get_course_format.json"
             },
             {
                 "question": "Contact a representative.",
-                "answer": "handleInput",
-                "next": "outro.json"
+                
+                "answer": "outro.json"
             }
         ],
-        "next": "find-course-dates/info_or_get_dates.json"
+        "answer": "find-course-dates/info_or_get_dates.json"
     }
 }

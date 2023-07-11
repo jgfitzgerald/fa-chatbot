@@ -4,18 +4,18 @@
         "reply": [
             {
                 "question": "I need help figuring out which course I need",
-                "answer": "handleInput",
-                "next": "find_right_course.json"
+                
+                "answer": "find_right_course.json"
             },
             {
                 "question": "I need help registering for a course",
-                "answer": "handleInput",
-                "next": "find_course_dates.json"
+                
+                "answer": "find_course_dates.json"
             },
             {
                 "question": "I need help with something else",
-                "answer": "handleInput",
-                "next": "talk_to_agent.json"
+                
+                "answer": "talk_to_agent.json"
             }
         ]
     },
@@ -24,8 +24,8 @@
         "reply": [
             {
                 "question": "Start over",
-                "answer": "handleInput",
-                "next": "intro.json"
+                
+                "answer": "intro.json"
             }
         ]
     }

@@ -4,13 +4,13 @@
         "reply": [
             {
                 "question": "Select a different course.",
-                "answer": "handleInput",
-                "next": "init_course_find.json"
+                
+                "answer": "init_course_find.json"
             },
             {
                 "question": "Register for this course.",
-                "answer": "handleInput",
-                "next": "init_course_find_"
+                
+                "answer": "init_course_find_"
             }
         ]
     }

@@ -4,13 +4,13 @@
         "reply": [
             {
                 "question": "Talk to a representative.",
-                "answer": "handleInput",
-                "next": "outro.json"
+                
+                "answer": "outro.json"
             },
             {
                 "question": "Search for a different course.",
-                "answer": "handleInput",
-                "next": "get_course_format.json"
+                
+                "answer": "get_course_format.json"
             }
         ]
     }

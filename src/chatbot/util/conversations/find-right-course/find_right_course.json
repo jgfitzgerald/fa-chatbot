@@ -4,25 +4,25 @@
         "reply": [
             {
                 "question": "I want to take a course for the first time.",
-                "answer": "handleInput",
-                "next": "find-right-course/course_quiz.json"
+                
+                "answer": "find-right-course/course_quiz.json"
             },
             {
                 "question": "I want to renew an existing certification.",
-                "answer": "handleInput",
-                "next": "hybrid_or_online"
+                
+                "answer": "hybrid_or_online"
             }
         ]
     },
     "New Brunswick recert": {
         "says": ["New Brunswick now requires those renewing their first aid certifications to redo their first aid course in its entirety every three years.", "Which course were you looking to renew?"],
         "response_key": "course",
-        "next": "get_course",
+        "answer": "get_course",
         "reply": [
             {
                 "question": "My course isn't listed",
-                "answer": "handleInput",
-                "next": "not_listed"
+                
+                "answer": "not_listed"
             }
         ]
     },
@@ -32,11 +32,11 @@
         "reply": [
             {
                 "question": "My course isn't listed",
-                "answer": "handleInput",
-                "next": "not_listed"
+                
+                "answer": "not_listed"
             }
         ],
-        "next": "get_course"
+        "answer": "get_course"
     },
     "hybrid_or_online": {
         "says": ["Great to hear that you want to renew your certification with us.", "Were you looking to renew your certification via a hybrid format or a completely in-person format?"],
@@ -44,18 +44,18 @@
         "reply": [
             {
                 "question": "In-Person",
-                "answer": "handleInput",
-                "next": "{{province}} recert"
+                
+                "answer": "{{province}} recert"
             },
             {
                 "question": "Hybrid",
-                "answer": "handleInput",
-                "next": "{{province}} recert"
+                
+                "answer": "{{province}} recert"
             },
             {
                 "question": "What's the difference?",
-                "answer": "handleInput",
-                "next": "format_explanation"
+                
+                "answer": "format_explanation"
             }
         ]
     },
@@ -65,18 +65,18 @@
         "reply": [
             {
                 "question": "In-Person",
-                "answer": "handleInput",
-                "next": "{{province}} recert"
+                
+                "answer": "{{province}} recert"
             },
             {
                 "question": "Hybrid",
-                "answer": "handleInput",
-                "next": "{{province}} recert"
+                
+                "answer": "{{province}} recert"
             },
             {
                 "question": "What's the difference?",
-                "answer": "handleInput",
-                "next": "format_explanation"
+                
+                "answer": "format_explanation"
             }
         ]
     },
@@ -85,30 +85,30 @@
         "reply": [
             {
                 "question": "Get information on selected course.",
-                "answer": "handleInput",
-                "next": "information/{{format}}_{{course}}.json"
+                
+                "answer": "information/{{format}}_{{course}}.json"
             },
             {
                 "question": "Find next course dates in my area.",
-                "answer": "handleInput",
-                "next": "find-course-dates/find_course_dates.json"
+                
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "Select a different course.",
-                "answer": "handleInput",
-                "next": "select_new_course"
+                
+                "answer": "select_new_course"
             },
             {
                 "question": "Contact us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     },
     "select_new_course": {
         "says": ["Sure thing. Which course were you looking to take?"],
         "response_key": "course",
-        "next": "get_course",
+        "answer": "get_course",
         "reply": []
     },
     "not_listed": {
@@ -116,13 +116,13 @@
         "reply": [
             {
                 "question": "Select a new format",
-                "answer": "handleInput",
-                "next": "{{province}} recert"
+                
+                "answer": "{{province}} recert"
             },
             {
                 "question": "Contact us",
-                "answer": "handleInput",
-                "next": "contact_us.json"
+                
+                "answer": "contact_us.json"
             }
         ]
     }
