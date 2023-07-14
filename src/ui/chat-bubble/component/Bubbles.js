@@ -40,6 +40,8 @@ function Bubbles(container, self, options) {
   //--> NOTE that this object is only assigned once, per session and does not change for this
   // 		constructor name during open session.
 
+  var chatHistory = [];
+
   // set up the stage
   container.classList.add("bubble-container")
   var bubbleWrap = document.createElement("div")
@@ -145,13 +147,6 @@ function Bubbles(container, self, options) {
     _convo[key] !== undefined
       ? (this.reply(_convo[key]), (standingAnswer = key))
       : (typeof responseCallbackFn === 'function' ? responseCallbackFn(content) : func(key, content))
-    // add re-generated user picks to the history stack
-    if (_convo[key] !== undefined && content !== undefined) {
-      interactionsSave(
-        '<span class="bubble-button reply-pick">' + content + "</span>",
-        "reply reply-pick"
-      )
-    }
   }
 
   // api for typing bubble
@@ -232,18 +227,11 @@ var addBubble = function(say, posted, reply, live) {
 
   avatar.style.visibility = "hidden";
 
-
   bubbleWrap.insertBefore(msgContainer, bubbleTyping);
 
   // answer picker styles
   if (reply !== "") {
     var bubbleButtons = bubbleContent.querySelectorAll(".bubble-button");
-    // for (var z = 0; z < bubbleButtons.length; z++) {
-    //   (function(el) {
-    //     if (!el.parentNode.parentNode.classList.contains("reply-freeform"))
-    //       el.style.width = el.offsetWidth - sidePadding * 2 + widerBy + "px";
-    //   })(bubbleButtons[z]);
-    // }
     bubble.addEventListener("click", function(e) {
       if (e.target.classList.contains("bubble-button")) {
         for (var i = 0; i < bubbleButtons.length; i++) {
@@ -257,6 +245,11 @@ var addBubble = function(say, posted, reply, live) {
           })(bubbleButtons[i]);
         }
         this.classList.add("bubble-picked");
+
+        chatHistory.pop();
+        userMsg = ('<div class="msg-container" id="user-message"><div class="bubble reply say bubble-picked">' + bubbleContent.outerHTML + '</div></div>')
+        chatHistory.push(userMsg);
+        sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
       }
     });
     isFirstMessage = true;
@@ -281,11 +274,13 @@ var addBubble = function(say, posted, reply, live) {
   bubbleQueue = setTimeout(function() {
     bubble.classList.remove("imagine");
     avatar.style.visibility = "visible";
-    var bubbleWidthCalc = bubbleContent.offsetWidth + widerBy + "px";
-    //bubble.style.width = reply == "" ? bubbleWidthCalc : "";
     bubble.style.width = say.includes("<img src=") ? "50%" : bubble.style.width;
     bubble.classList.add("say");
     posted();
+
+    var clonedContainer = msgContainer.cloneNode(true);
+    chatHistory.push(clonedContainer.outerHTML);
+    sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
 
     // animate scrolling
     containerHeight = container.offsetHeight;
@@ -340,5 +335,20 @@ function prepHTML(options) {
 if (typeof exports !== "undefined") {
   exports.Bubbles = Bubbles
   exports.prepHTML = prepHTML
+}
+
+
+this.restoreChatHistory = function() {
+  // Retrieve chat history from sessionStorage
+  clientId = sessionStorage.getItem('clientID');
+  chatHistory = JSON.parse(sessionStorage.getItem('chatHistory'));
+
+  // iterate over the chatHistory array and add the messages to the chat window
+  for (var i = 0; i < chatHistory.length; i++) {
+    var messageHTML = chatHistory[i];
+    var messageNode = document.createElement('div');
+    messageNode.innerHTML = messageHTML;
+    bubbleWrap.insertBefore(messageNode.firstChild, bubbleTyping);
+  }
 }
 }
