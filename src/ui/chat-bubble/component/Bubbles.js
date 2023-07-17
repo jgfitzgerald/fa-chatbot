@@ -107,6 +107,28 @@ function Bubbles(container, self, options) {
     here ? (standingAnswer = here) : false
   }
 
+  this.restoreChatHistory = function() {
+    // Retrieve chat history from sessionStorage
+    clientId = sessionStorage.getItem('clientID');
+    chatHistory = JSON.parse(sessionStorage.getItem('chatHistory'));
+    
+    removeDupeUserMessages(chatHistory);
+    // iterate over the chatHistory array and add the messages to the chat window
+    for (var i = 0; i < chatHistory.length - 1; i++) {
+      var messageHTML = chatHistory[i];
+      var messageNode = document.createElement('div');
+      messageNode.innerHTML = messageHTML;
+      bubbleWrap.insertBefore(messageNode.firstChild, bubbleTyping);
+    }
+
+    var lastEntry = chatHistory[chatHistory.length - 1];
+    var spanContents = $(lastEntry).find('.bubble-button').map(function() {
+      return this.outerHTML;
+    }).get().join('');
+
+    addBubble(spanContents, function() {}, "reply");
+  }
+
   var iceBreaker = false // this variable holds answer to whether this is the initative bot interaction or not
   this.reply = function(turn) {
     iceBreaker = typeof turn === "undefined"
@@ -132,6 +154,8 @@ function Bubbles(container, self, options) {
         })(turn.reply[i], i);
       }
     }
+
+
     orderBubbles(turn.says, function() {
       bubbleTyping.classList.remove("imagine")
       questionsHTML !== ""
@@ -244,11 +268,13 @@ var addBubble = function(say, posted, reply, live) {
             el.removeAttribute("onclick");
           })(bubbleButtons[i]);
         }
+
         this.classList.add("bubble-picked");
 
         chatHistory.pop();
         userMsg = ('<div class="msg-container" id="user-message"><div class="bubble reply say bubble-picked">' + bubbleContent.outerHTML + '</div></div>')
         chatHistory.push(userMsg);
+        console.log('added msg')
         sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
       }
     });
@@ -280,6 +306,7 @@ var addBubble = function(say, posted, reply, live) {
 
     var clonedContainer = msgContainer.cloneNode(true);
     chatHistory.push(clonedContainer.outerHTML);
+    console.log('added msg 2')
     sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
 
     // animate scrolling
@@ -337,18 +364,17 @@ if (typeof exports !== "undefined") {
   exports.prepHTML = prepHTML
 }
 
-
-this.restoreChatHistory = function() {
-  // Retrieve chat history from sessionStorage
-  clientId = sessionStorage.getItem('clientID');
-  chatHistory = JSON.parse(sessionStorage.getItem('chatHistory'));
-
-  // iterate over the chatHistory array and add the messages to the chat window
-  for (var i = 0; i < chatHistory.length; i++) {
-    var messageHTML = chatHistory[i];
-    var messageNode = document.createElement('div');
-    messageNode.innerHTML = messageHTML;
-    bubbleWrap.insertBefore(messageNode.firstChild, bubbleTyping);
+function removeDupeUserMessages(chatHistory) {
+  for (let i = chatHistory.length - 2; i >= 0; i--) {
+    console.log(chatHistory[i])
+    var dupe = /<div class="msg-container" id="user-message">[\s\S]*?<\/div>/;
+    if (dupe.test(chatHistory[i])) {
+      chatHistory.splice(i, 1);
+    } else {
+    break;
+    }
+    return chatHistory;
   }
 }
+
 }
