@@ -117,7 +117,7 @@
             {
                 "question": "Select a new format",
                 
-                "answer": "{{province}} recert"
+                "answer": "hybrid_or_online"
             },
             {
                 "question": "Contact us",

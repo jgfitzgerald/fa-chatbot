@@ -41,18 +41,16 @@ def handle_course_date(convo, user_params):
     data = api.get_class_list(location_map[user_params['location']],
                                     course_map[user_params['course']])
     
-    classes = data["data"][0]["courses"][0]["classes"]
-    earliest_classes = classes[user_params['index']:user_params['index']+3]
+    classes = data["data"][0]["courses"][0]["classes"] if data.get("data") and data["data"][0].get("courses") and data["data"][0]["courses"] else None
+    earliest_classes = classes[user_params['index']:user_params['index']+3] if classes is not None else None
     
-    if not earliest_classes:
+    if not earliest_classes and (classes is None or user_params['input'] not in [class_info["start_date"] if class_info["start_date"] == class_info["end_date"] else "{}-{}".format(class_info["start_date"], class_info["end_date"]) for class_info in classes]):
         path = os.path.join(os.path.dirname(__file__), "conversations", "find-course-dates/no_courses.json")
         user_params['index'] = 0
         with open(path, "r") as file:
             convo = json.loads(file.read())
         user_params['current_convo'] = convo
-        user_params['answer'] = "no_courses.json"
-        print(user_params)
-        print('here')
+        user_params['answer'] = "find-course-dates/no_courses.json"
         return convo["ice"]
 
     for class_info in earliest_classes:
@@ -66,7 +64,12 @@ def handle_course_date(convo, user_params):
                 "answer": convo["answer"]
             })
         
+    
     user_params['index'] = user_params['index'] + 3
+
+    # reset the counter if the user selected a date
+    if user_params['input'] in [class_info["start_date"] if class_info["start_date"] == class_info["end_date"] else "{}-{}".format(class_info["start_date"], class_info["end_date"]) for class_info in classes]:
+        user_params['index'] = 0
 
     return convo
 
