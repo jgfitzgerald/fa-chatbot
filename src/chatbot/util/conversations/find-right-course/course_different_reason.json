@@ -1,0 +1,17 @@
+{
+    "ice": {
+        "says": ["To get a better sense of your needs, you may want to get in contact with a human representative who can assist you and suggest the correct course.", "You can also opt receive information on the courses we offer."],
+        "reply": [
+            {
+                "question": "Contact Us",
+                
+                "answer": "contact_us.json"
+            },
+            {
+                "question": "Select a course",
+                
+                "answer": "get_course_format.json"
+            }
+        ]
+    }
+}

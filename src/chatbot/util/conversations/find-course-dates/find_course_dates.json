@@ -14,32 +14,6 @@
             }
         ]
     },
-    "hybrid_online_explanation": {
-        "says": ["In our in-person classes, participants learn all in the information they need to know for their certification in the classroom, no pre-studying required.", "Our hybrid classes require participants to first complete a set of self-lead videos through our online portal before coming to class in-person for a skills assessment.", "Hybrid programs may offer more flexibility as the videos can be completed at any time before the skills assessment, and participants often spend less time in the classroom.", "Lastly, virtual classes are limited to a few topics and are completed entirely online.", "That being said, which course format were you interested in?"],
-        "response_key": "format",
-        "reply": [
-            {
-                "question": "Online",
-                
-                "answer": "find-course-dates/get_course_name.json"
-            },
-            {
-                "question": "In-Person",
-                
-                "answer": "find-course-dates/get_course_name.json"
-            },
-            {
-                "question": "Hybrid",
-                
-                "answer": "find-course-dates/get_course_name.json"
-            },
-            {
-                "question": "What's the difference?",
-                
-                "answer": "hybrid_online_explanation"
-            }
-        ]
-    },
     "get_course_format": {
         "says": ["Thank you. Were you looking to take a online, hybrid, or in-person course?"],
         "response_key": "format",
@@ -65,6 +39,31 @@
                 "answer": "hybrid_online_explanation"
             }
         ]
+    },
+    "hybrid_online_explanation": {
+        "says": ["In our in-person classes, participants learn all in the information they need to know for their certification in the classroom, no pre-studying required.", "Our hybrid classes require participants to first complete a set of self-lead videos through our online portal before coming to class in-person for a skills assessment.", "Hybrid programs may offer more flexibility as the videos can be completed at any time 6 weeks before the skills assessment, and participants often spend less time in the classroom.", "Lastly, virtual classes are limited to a few topics and are completed entirely online.", "That being said, which course format were you interested in?"],
+        "response_key": "format",
+        "reply": [
+            {
+                "question": "Online",
+                
+                "answer": "find-course-dates/get_course_name.json"
+            },
+            {
+                "question": "In-Person",
+                
+                "answer": "find-course-dates/get_course_name.json"
+            },
+            {
+                "question": "Hybrid",
+                
+                "answer": "find-course-dates/get_course_name.json"
+            },
+            {
+                "question": "What's the difference?",
+                
+                "answer": "hybrid_online_explanation"
+            }
+        ]
     }
-
 }

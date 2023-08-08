@@ -47,8 +47,9 @@ class Chatbot:
 
         if 'course' in self.chat_params:
             self.chat_params['course_id'] = response_handler.course_map[self.chat_params['course']] if self.chat_params['course'] in response_handler.course_map else None
-
-
+            self.chat_params['format'] = response_handler.course_formats[self.chat_params['course']] if self.chat_params['course'] in response_handler.course_map else None
+            self.chat_params['reg_link'] = response_handler.class_id_link_map[self.chat_params['course_id']]
+            
         def substitute(match):
             key = match.group(1)
             if key in params:
@@ -65,12 +66,12 @@ class Chatbot:
 
         if 'response_key' in substituted_data[index]:
             substituted_data[index] = response_handler.responses_factory(substituted_data[index], substituted_data[index]['response_key'], self.chat_params)
-
+        
         return substituted_data
     
     # handles user input and returns the next conversation token
     def chat_input(self, input):
-
+        
         # get the current conversation
         self.chat_params['input'] = input
         convo = self.sub_params(copy.deepcopy(self.chat_params['current_convo']), self.chat_params['current_token'], self.chat_params)
@@ -80,10 +81,17 @@ class Chatbot:
         if 'response_key' in convo:
             self.chat_params[convo['response_key']] = input
 
+        if 'course' in self.chat_params:
+            self.chat_params['course_id'] = response_handler.course_map[self.chat_params['course']] if self.chat_params['course'] in response_handler.course_map else None
+            self.chat_params['format'] = response_handler.course_formats[self.chat_params['course']] if self.chat_params['course'] in response_handler.course_map else None
+            self.chat_params['reg_link'] = response_handler.class_id_link_map[self.chat_params['course_id']]
+          
         if any(input == reply["question"] for reply in convo["reply"]):
             self.chat_params['answer'] = next((reply["answer"] for reply in convo["reply"] if reply["question"].lower() == input.lower()), None)
+            self.chat_params['answer'] = re.sub(r"\{\{(\w+)\}\}", lambda match: self.chat_params.get(match.group(1), match.group(0)), self.chat_params['answer'])
         else:
             self.chat_params['answer'] = convo['answer'] if 'answer' in convo else self.chat_params['answer']
+            self.chat_params['answer'] = re.sub(r"\{\{(\w+)\}\}", lambda match: self.chat_params.get(match.group(1), match.group(0)), self.chat_params['answer'])
 
 
         # load the next conversations

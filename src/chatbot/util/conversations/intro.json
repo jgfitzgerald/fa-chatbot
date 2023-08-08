@@ -56,28 +56,12 @@
         ]
     },
     "service_not_available": {
-        "says": ["It looks like we haven't expanded in your area yet, you can sign up for our newsletter and when we open a location in your province we will let you know.", "Would you like to sign up for our newsletter?"],
-        "reply": [
-            {
-                "question": "Yes, please!",
-                
-                "answer": "sign_up_for_newsletter"
-            },
-            {
-                "question": "No, thank you.",
-                
-                "answer": "outro.json"
-            }
-
-        ]
-    },
-    "sign_up_for_newsletter": {
-        "says": ["Click <a href=\"https://www.lifestarttraining.com/\">here</a> to sign up for our newsletter!", "Is there anything else I can help you with today?"],
+        "says": ["It looks like we haven't expanded in your area yet, you can sign up for our newsletter and when we open a location in your province we will let you know.", "To subscribe to our newsletter, click the 'Subscribe' tab on the left side of the page and enter your information. We will let you know when our services become availanle in your location.", "Is there anything else I can help you with today?"],
         "reply": [
             {
                 "question": "Yes, take me back to the beginning!",
                 
-                "answer": "ice"
+                "answer": "intro.json"
             },
             {
                 "question": "No",

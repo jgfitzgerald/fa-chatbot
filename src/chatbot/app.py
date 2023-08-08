@@ -13,16 +13,20 @@ if __name__ == '__main__':
 
 @app.route('/app/chat', methods=['POST'])
 def chat():
-    if request.json['id'] not in db:
-         abort(404)
-    else:
-        user_input = request.json['input']
-        response = db.get(request.json['id']).chat_input(user_input)
-        return jsonify(response)
+    try:
+        if request.json['id'] not in db:
+            abort(404)
+        else:
+            user_input = request.json['input']
+            response = db.get(request.json['id']).chat_input(user_input)
+            return jsonify(response)
+    except Exception as e:
+        with open('util/conversations/error.json', 'r') as error_file:
+            error_data = json.load(error_file)
+        return error_data
 
 @app.route('/app/start', methods=['POST'])
 def start():
-    
     # instantiate a new chatbot and add to database
     new_bot = Chatbot()
     db[str(new_bot.id)] = new_bot

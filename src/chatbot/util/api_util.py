@@ -2,7 +2,7 @@ import requests
 import os
 
 API_URL = os.getenv('API_URL')
-NUM_DISPLAY = 3
+NUM_DISPLAY = 3 # the number of course dates displayed at a time
 
 def get_class_list(location_id, course_id):
     body = {"location":location_id, "course": course_id}
@@ -26,3 +26,6 @@ def get_locations():
         return response.json()
     else:
         return None
+    
+def get_registration_link(id):
+    return class_id_link_map[id]
