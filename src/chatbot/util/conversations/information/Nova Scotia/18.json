@@ -10,7 +10,7 @@
             {
                 "question": "Register for this course.",
                 
-                "answer": "init_course_find_"
+                "answer": "find-course-dates/display_course.json"
             }
         ]
     }

@@ -22,9 +22,8 @@
             {
                 "question": "Contact a representative.",
                 
-                "answer": "outro.json"
+                "answer": "contact_us.json"
             }
-        ],
-        "answer": "find-course-dates/info_or_get_dates.json"
+        ]
     }
 }

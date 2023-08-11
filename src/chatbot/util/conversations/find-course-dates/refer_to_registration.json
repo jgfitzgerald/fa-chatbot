@@ -15,7 +15,7 @@
         ]
     },
     "register": {
-        "says": ["You can click <a href=\"https://www.lifestarttraining.com/\">here</a> to register for your course, is there anything else I can help you with?"],
+        "says": ["You can click <a href=\"{{reg_link}}\">here</a> to register for your course, is there anything else I can help you with?"],
         "reply": [
             {
                 "question": "Yes",
@@ -25,8 +25,11 @@
             {
                 "question": "No",
                 
-                "answer": "outro.json"
+                "answer": "outro"
             }
         ]
+    },
+    "outro": {
+        "says": ["It was a pleasure to speak with you. If you'd like to restart the conversation, reload the page or reload the chat by pressing the reload button in the upper right corner."]
     }
 }

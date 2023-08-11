@@ -2,6 +2,7 @@
 function Bubbles(container, self, options) {
   // options
   clientId = null;
+  chatHistoryEnabled = true;
   options = {
     responseCallbackFn: function(content) {
       requestBody = {
@@ -24,72 +25,46 @@ function Bubbles(container, self, options) {
           // Handle any errors that occur during the API request
           console.error('Error fetching conversation flow:', error);
       });
-    }
+    } 
+    // Uncomment this to install an input field (chat box)
+    // ,
+    // inputCallbackFn: function(content) {
+    //   requestBody = {
+    //     "id": clientId,
+    //     "input": content.input
+    //   };
+
+    //   fetch('http://localhost:5000/app/chat', {
+    //   method: 'POST',
+    //   headers: {
+    //       'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(requestBody)
+    //   })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //       chatWindow.talk(data);
+    //   })
+    //   .catch(error => {
+    //       // Handle any errors that occur during the API request
+    //       console.error('Error fetching conversation flow:', error);
+    //   });
+    // }
   }
   animationTime = options.animationTime || 200 // how long it takes to animate chat bubble, also set in CSS
   typeSpeed = options.typeSpeed || 5 // delay per character, to simulate the machine "typing"
   widerBy = options.widerBy || 2 // add a little extra width to bubbles to make sure they don't break
   sidePadding = options.sidePadding || 6 // padding on both sides of chat bubbles
-  recallInteractions = options.recallInteractions || 0 // number of interactions to be remembered and brought back upon restart
   inputCallbackFn = options.inputCallbackFn || false // should we display an input field?
   responseCallbackFn =  options.responseCallbackFn || false // is there a callback function for when a user clicks on a bubble button
+  chatHistoryEnabled = options.chatHistoryEnabled || false
   // this function is called after the user sends a message
-
-  var standingAnswer = "ice" // remember where to restart convo if interrupted
 
   var _convo = {} // local memory for conversation JSON object
   //--> NOTE that this object is only assigned once, per session and does not change for this
   // 		constructor name during open session.
 
-  // local storage for recalling conversations upon restart
-  var localStorageCheck = function() {
-    var test = "chat-bubble-storage-test"
-    try {
-      localStorage.setItem(test, test)
-      localStorage.removeItem(test)
-      return true
-    } catch (error) {
-      console.error(
-        "Your server does not allow storing data locally. Most likely it's because you've opened this page from your hard-drive. For testing you can disable your browser's security or start a localhost environment."
-      )
-      return false
-    }
-  }
-  var localStorageAvailable = localStorageCheck() && recallInteractions > 0
-  var interactionsLS = "chat-bubble-interactions"
-  var interactionsHistory =
-    (localStorageAvailable &&
-      JSON.parse(localStorage.getItem(interactionsLS))) ||
-    []
-
-  // prepare next save point
-  interactionsSave = function(say, reply) {
-    if (!localStorageAvailable) return
-    // limit number of saves
-    if (interactionsHistory.length > recallInteractions)
-      interactionsHistory.shift() // removes the oldest (first) save to make space
-
-    // do not memorize buttons; only user input gets memorized:
-    if (
-      // `bubble-button` class name signals that it's a button
-      say.includes("bubble-button") &&
-      // if it is not of a type of textual reply
-      reply !== "reply reply-freeform" &&
-      // if it is not of a type of textual reply or memorized user choice
-      reply !== "reply reply-pick"
-    )
-      // ...it shan't be memorized
-      return
-
-    // save to memory
-    interactionsHistory.push({ say: say, reply: reply })
-  }
-
-  // commit save to localStorage
-  interactionsSaveCommit = function() {
-    if (!localStorageAvailable) return
-    localStorage.setItem(interactionsLS, JSON.stringify(interactionsHistory))
-  }
+  var chatHistory = [];
 
   // set up the stage
   container.classList.add("bubble-container")
@@ -125,7 +100,6 @@ function Bubbles(container, self, options) {
           ? callbackFn({
               input: this.value,
               convo: _convo,
-              standingAnswer: standingAnswer
             })
           : false
         this.value = ""
@@ -148,18 +122,16 @@ function Bubbles(container, self, options) {
   bubbleWrap.appendChild(bubbleTyping)
 
   // accept JSON & create bubbles
-  this.talk = function(convo, here) {
-    // all further .talk() calls will append the conversation with additional blocks defined in convo parameter
-    _convo = Object.assign(_convo, convo) // POLYFILL REQUIRED FOR OLDER BROWSERS
-
+  this.talk = function(convo) {
+    _convo = convo // POLYFILL REQUIRED FOR OLDER BROWSERS
+    here = Object.keys(_convo)[0];
     this.reply(_convo[here])
-    here ? (standingAnswer = here) : false
   }
 
   var iceBreaker = false // this variable holds answer to whether this is the initative bot interaction or not
   this.reply = function(turn) {
     iceBreaker = typeof turn === "undefined"
-    turn = !iceBreaker ? turn : _convo.ice
+    turn = !iceBreaker ? turn : _convo[Object.keys(turn)[0]]
     questionsHTML = ""
     if (!turn) return
     if (turn.reply !== undefined) {
@@ -181,6 +153,8 @@ function Bubbles(container, self, options) {
         })(turn.reply[i], i);
       }
     }
+
+
     orderBubbles(turn.says, function() {
       bubbleTyping.classList.remove("imagine")
       questionsHTML !== ""
@@ -191,19 +165,12 @@ function Bubbles(container, self, options) {
   // navigate "answers"
   this.answer = function(key, content) {
     var func = function(key, content) {
-      typeof window[key] === "function" ? window[key](content) : false
-    }
+      typeof window[key] === "function" ? window[key](content) : false;
+    };
     _convo[key] !== undefined
-      ? (this.reply(_convo[key]), (standingAnswer = key))
-      : (typeof responseCallbackFn === 'function' ? responseCallbackFn(content) : func(key, content))
-    // add re-generated user picks to the history stack
-    if (_convo[key] !== undefined && content !== undefined) {
-      interactionsSave(
-        '<span class="bubble-button reply-pick">' + content + "</span>",
-        "reply reply-pick"
-      )
-    }
-  }
+      ? this.reply(_convo[key])
+      : typeof responseCallbackFn === 'function' ? responseCallbackFn(content) : func(key, content);
+  };
 
   // api for typing bubble
   this.think = function() {
@@ -244,7 +211,7 @@ var addBubble = function(say, posted, reply, live) {
   var animationTime = live ? this.animationTime : 0;
   var typeSpeed = live ? this.typeSpeed : 0;
 
-  var messageSource = (reply === "reply") ? "user" : "bot";
+  var messageSource = (reply === "reply" || reply === "reply reply-freeform") ? "user" : "bot";
 
   // create bubble element
   var msgContainer = document.createElement("div")
@@ -263,10 +230,16 @@ var addBubble = function(say, posted, reply, live) {
   bubble.appendChild(bubbleContent);
 
   if (messageSource == "user") {
+    if (reply === "reply reply-freeform") { // TEXT INPUT IS HANDLED HERE
+      msgContainer = bubbleWrap.childNodes[bubbleWrap.childNodes.length - 2]
+      msgContainer.insertBefore(bubble, msgContainer.lastChild)
+      avatar.style.marginRight = 0;
+    } else {
     msgContainer.id = "user-message";
     msgContainer.appendChild(bubble);
     msgContainer.appendChild(avatar);
     avatar.style.marginRight = 0;
+    }
   } else {
     msgContainer.id = "bot-message";
     msgContainer.appendChild(avatar);
@@ -283,18 +256,11 @@ var addBubble = function(say, posted, reply, live) {
 
   avatar.style.visibility = "hidden";
 
-
   bubbleWrap.insertBefore(msgContainer, bubbleTyping);
 
   // answer picker styles
   if (reply !== "") {
     var bubbleButtons = bubbleContent.querySelectorAll(".bubble-button");
-    // for (var z = 0; z < bubbleButtons.length; z++) {
-    //   (function(el) {
-    //     if (!el.parentNode.parentNode.classList.contains("reply-freeform"))
-    //       el.style.width = el.offsetWidth - sidePadding * 2 + widerBy + "px";
-    //   })(bubbleButtons[z]);
-    // }
     bubble.addEventListener("click", function(e) {
       if (e.target.classList.contains("bubble-button")) {
         for (var i = 0; i < bubbleButtons.length; i++) {
@@ -307,6 +273,7 @@ var addBubble = function(say, posted, reply, live) {
             el.removeAttribute("onclick");
           })(bubbleButtons[i]);
         }
+
         this.classList.add("bubble-picked");
       }
     });
@@ -332,15 +299,9 @@ var addBubble = function(say, posted, reply, live) {
   bubbleQueue = setTimeout(function() {
     bubble.classList.remove("imagine");
     avatar.style.visibility = "visible";
-    var bubbleWidthCalc = bubbleContent.offsetWidth + widerBy + "px";
-    //bubble.style.width = reply == "" ? bubbleWidthCalc : "";
     bubble.style.width = say.includes("<img src=") ? "50%" : bubble.style.width;
     bubble.classList.add("say");
     posted();
-
-    // save the interaction
-    interactionsSave(say, reply);
-    !iceBreaker && interactionsSaveCommit(); // save point
 
     // animate scrolling
     containerHeight = container.offsetHeight;
@@ -360,18 +321,6 @@ var addBubble = function(say, posted, reply, live) {
     setTimeout(scrollBubbles, animationTime / 2);
   }, wait + animationTime * 2);
 };
-
-
-  // recall previous interactions
-  for (var i = 0; i < interactionsHistory.length; i++) {
-    addBubble(
-      interactionsHistory[i].say,
-      function() {},
-      interactionsHistory[i].reply,
-      false
-    )
-  }
-}
 
 // below functions are specifically for WebPack-type project that work with import()
 
@@ -407,4 +356,5 @@ function prepHTML(options) {
 if (typeof exports !== "undefined") {
   exports.Bubbles = Bubbles
   exports.prepHTML = prepHTML
+}
 }

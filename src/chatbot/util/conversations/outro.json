@@ -1,12 +1,5 @@
 {
     "ice": {
-        "says": ["Sorry I was not able to help you today. You can click here to talk to a representative.", "At Life Start, we are overacheivers. I'm always looking to improve!", "If you would like to complete a short satisfaction survey about your experience with me today, please click <a href=\"https://www.lifestarttraining.com/\">here</a>. This survey is completely optional, and is used to help improve my user experience.", "Otherwise, have a lovely day! You can click 'start over' to restart the conversation."],
-        "reply": [
-            {
-                "question": "Start over",
-                
-                "answer": "intro.json"
-            }
-        ]
+        "says": ["Sorry I couldn't help you today. You can click  <a href='mailto:admin@lifestarttraining.com?subject=Hello%20from%20Me'>here</a> to email a human representative.", "If you'd like to restart the conversation, reload the chat using the reload button or reload the page."]
     }
 }

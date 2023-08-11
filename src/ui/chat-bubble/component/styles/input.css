@@ -35,3 +35,7 @@
 	transform: scale(0);
 	height: 0;
 }
+
+textarea {
+	resize: none;
+}

@@ -10,7 +10,7 @@
             {
                 "question": "I am taking a first aid course for a different reason.",
                 
-                "answer": "different_reason"
+                "answer": "find-right-course/course_different_reason.json"
             }
         ]
     },
