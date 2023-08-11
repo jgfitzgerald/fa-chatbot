@@ -1,32 +1,25 @@
 {
     "ice": {
-        "says": ["Thank you!", "What can I assist you with today?"],
+        "says": ["What can I assist you with today?"],
         "reply": [
             {
                 "question": "I need help figuring out which course I need",
                 
-                "answer": "find_right_course.json"
+                "answer": "find-right-course/find_right_course.json"
             },
             {
-                "question": "I need help registering for a course",
+                "question": "I need help finding the next course dates in my area.",
                 
-                "answer": "find_course_dates.json"
+                "answer": "find-course-dates/find_course_dates.json"
             },
             {
                 "question": "I need help with something else",
                 
-                "answer": "talk_to_agent.json"
+                "answer": "talk_to_agent"
             }
         ]
     },
     "talk_to_agent": {
-        "says": ["Sorry to hear that.", "I'll refer you to a representative who can assist you as soon as possible. Our office is open from 8:30-4:30 from Monday-Friday.", "To send a ticket to a representative, click <a href=\"https://www.lifestarttraining.com/\">here</a>. If you would like to restart the conversation, click 'Start over'."],
-        "reply": [
-            {
-                "question": "Start over",
-                
-                "answer": "intro.json"
-            }
-        ]
+        "says": ["To ensure you get the assistance you need, I'll refer you to a representative who can help you as soon as possible. Our office is open from 8:30-5:30 from Monday-Friday.", "To send an email to a representative, click <a href='mailto:admin@lifestarttraining.com?subject=Hello%20from%20Me'>here</a>.", "If you would like to restart the conversation, reload the chat using the reload button in the upper right corner, or reload the page."]
     }
 }

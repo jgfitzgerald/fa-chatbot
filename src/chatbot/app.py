@@ -21,8 +21,10 @@ def chat():
             response = db.get(request.json['id']).chat_input(user_input)
             return jsonify(response)
     except Exception as e:
+        print("Exception:", str(e))  # Print the exception
         with open('util/conversations/error.json', 'r') as error_file:
             error_data = json.load(error_file)
+        # return an error message to user
         return error_data
 
 @app.route('/app/start', methods=['POST'])

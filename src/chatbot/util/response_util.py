@@ -5,12 +5,13 @@ location_map = {location["name"]: location["id"] for location in api.get_locatio
 course_map = {course["name"]: course["id"] for course in api.get_courses()["data"]}
 course_formats = {course["name"]: course["format"] for course in api.get_courses()["data"]}
 
+# list of locations by province
 locations_by_province = {
     "New Brunswick": ["LOAI FRANCHISE", "Life Start Saint John", "KHRYSPN FRANCHISE"],
     "Nova Scotia": ["Halifax", "Lisa Test", "testFranchise01", "testName001"]
 }
 
-# replace this with an api endpoint in the future
+# list of course registration links by course id
 class_id_link_map = {
     "701": "https://www.lifestarttraining.com/course/",
     "75": "https://www.lifestarttraining.com/course/",
@@ -24,7 +25,7 @@ class_id_link_map = {
     "68": "https://www.lifestarttraining.com/course/virtual-new-brunswick-6-hour-skills-refresher?loc=moncton",
     "53": "https://www.lifestarttraining.com/course/new-brunswick-annual-skills-refresher-6pgy3ukn-ovb3chlx",
     "39": "https://www.lifestarttraining.com/course/hybrid-cpraed-level-hcp-vruk9ox8-n7odlqzx#schedules",
-    "40": "lifestarttraining.com/course/marine-basic-first-aid#schedules",
+    "40": "https://www.lifestarttraining.com/course/marine-basic-first-aid#schedules",
     "36": "https://www.lifestarttraining.com/course/life-start-safe-tween-babysitting-program#schedules",
     "19": "https://www.lifestarttraining.com/course/virtual-recertification-emergency-first-aid-cpraed-level-c230110095340",
     "26": "https://www.lifestarttraining.com/course/virtual-infant-and-child-first-aid-awareness",

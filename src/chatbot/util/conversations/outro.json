@@ -1,12 +1,5 @@
 {
     "ice": {
-        "says": ["<a href='mailto:admin@lifestarttraining.com'>Click here to email our admin.</a>", "Note: Our office hours are 8:30am-5:30pm Monday-Friday. We will try to get back to you as soon as possible.", "You can select 'start over' to restart the conversation."],
-        "reply": [
-            {
-                "question": "Start over",
-                
-                "answer": "intro.json"
-            }
-        ]
+        "says": ["Sorry I couldn't help you today. You can click  <a href='mailto:admin@lifestarttraining.com?subject=Hello%20from%20Me'>here</a> to email a human representative.", "If you'd like to restart the conversation, reload the chat using the reload button or reload the page."]
     }
 }

@@ -6,34 +6,47 @@ $(function() {
     "chatWindow" // ./chat-bubble.and name of the function as a parameter
   );
 
-  var chatStarted = false; // prevents first message from sending multiple times
+  chatStarted = false; // prevents first message from sending multiple times
   var chatCircle = document.getElementById("chat-circle");
   chatCircle.addEventListener("click", sendFirstMessage);
 
-  if (
-    sessionStorage.getItem("chatHistory") !== null &&
-    sessionStorage.getItem("clientID") !== null
-  ) {
+  // Event listener for the refresh button
+  var refreshButton = document.querySelector(".chat-box-refresh");
 
-    chatHistory = JSON.parse(sessionStorage.getItem("chatHistory"));
-    lastMsgHTML = chatHistory.pop();
+  refreshButton.addEventListener("click", function() {
+    chatStarted = false;
+    document.querySelector(".bubble-wrap").remove();
+    chatWindow = new Bubbles(
+      document.getElementById("chat"), // ./chat-bubble.passing HTML container element./chat-bubble.
+      "chatWindow" // ./chat-bubble.and name of the function as a parameter
+    );
+    sendFirstMessage();
+  });
 
-    var tempContainer = document.createElement("div");
-    tempContainer.innerHTML = lastMsgHTML;
-    var lastMsg = tempContainer.lastChild;
+  // if (
+  //   sessionStorage.getItem("chatHistory") !== null &&
+  //   sessionStorage.getItem("clientID") !== null
+  // ) {
 
-    var invalidRender =
-      lastMsg.id === "bot-message" ||
-      lastMsg.querySelector(".bubble.reply.say").classList.contains(
-        "bubble-picked"
-      );
+  //   chatHistory = JSON.parse(sessionStorage.getItem("chatHistory"));
+  //   lastMsgHTML = chatHistory.pop();
 
-    // Restore chat history
-    if (!invalidRender) {
-      chatStarted = true;
-      chatWindow.restoreChatHistory();
-    }
-  }
+  //   var tempContainer = document.createElement("div");
+  //   tempContainer.innerHTML = lastMsgHTML;
+  //   var lastMsg = tempContainer.lastChild;
+
+  //   var invalidRender =
+  //     lastMsg.id === "bot-message" ||
+  //     lastMsg.querySelector(".bubble.reply.say").classList.contains(
+  //       "bubble-picked"
+  //     );
+
+  //   // Restore chat history
+  //   if (!invalidRender) {
+  //     chatStarted = true;
+  //     chatWindow.restoreChatHistory();
+  //   }
+  // }
 
   function sendFirstMessage() {
     // Make a POST request to fetch the conversation flow from the API
@@ -54,10 +67,6 @@ $(function() {
 
           delete convo.id;
           chatStarted = true;
-
-          if (invalidRender !== null && invalidRender) {
-            convo.ice.says.unshift("I was unable to fetch your previous conversation history. I'll restart the conversation.")
-          }
 
           chatWindow.talk(convo);
         })

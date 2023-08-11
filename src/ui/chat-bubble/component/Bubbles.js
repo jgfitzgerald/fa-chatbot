@@ -2,6 +2,7 @@
 function Bubbles(container, self, options) {
   // options
   clientId = null;
+  chatHistoryEnabled = true;
   options = {
     responseCallbackFn: function(content) {
       requestBody = {
@@ -24,7 +25,31 @@ function Bubbles(container, self, options) {
           // Handle any errors that occur during the API request
           console.error('Error fetching conversation flow:', error);
       });
-    }
+    } 
+    // Uncomment this to install an input field (chat box)
+    // ,
+    // inputCallbackFn: function(content) {
+    //   requestBody = {
+    //     "id": clientId,
+    //     "input": content.input
+    //   };
+
+    //   fetch('http://localhost:5000/app/chat', {
+    //   method: 'POST',
+    //   headers: {
+    //       'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(requestBody)
+    //   })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //       chatWindow.talk(data);
+    //   })
+    //   .catch(error => {
+    //       // Handle any errors that occur during the API request
+    //       console.error('Error fetching conversation flow:', error);
+    //   });
+    // }
   }
   animationTime = options.animationTime || 200 // how long it takes to animate chat bubble, also set in CSS
   typeSpeed = options.typeSpeed || 5 // delay per character, to simulate the machine "typing"
@@ -32,9 +57,8 @@ function Bubbles(container, self, options) {
   sidePadding = options.sidePadding || 6 // padding on both sides of chat bubbles
   inputCallbackFn = options.inputCallbackFn || false // should we display an input field?
   responseCallbackFn =  options.responseCallbackFn || false // is there a callback function for when a user clicks on a bubble button
+  chatHistoryEnabled = options.chatHistoryEnabled || false
   // this function is called after the user sends a message
-
-  var standingAnswer = "ice" // remember where to restart convo if interrupted
 
   var _convo = {} // local memory for conversation JSON object
   //--> NOTE that this object is only assigned once, per session and does not change for this
@@ -76,7 +100,6 @@ function Bubbles(container, self, options) {
           ? callbackFn({
               input: this.value,
               convo: _convo,
-              standingAnswer: standingAnswer
             })
           : false
         this.value = ""
@@ -99,40 +122,16 @@ function Bubbles(container, self, options) {
   bubbleWrap.appendChild(bubbleTyping)
 
   // accept JSON & create bubbles
-  this.talk = function(convo, here) {
-    // all further .talk() calls will append the conversation with additional blocks defined in convo parameter
-    _convo = Object.assign(_convo, convo) // POLYFILL REQUIRED FOR OLDER BROWSERS
-
+  this.talk = function(convo) {
+    _convo = convo // POLYFILL REQUIRED FOR OLDER BROWSERS
+    here = Object.keys(_convo)[0];
     this.reply(_convo[here])
-    here ? (standingAnswer = here) : false
-  }
-
-  this.restoreChatHistory = function() {
-    // Retrieve chat history from sessionStorage
-    clientId = sessionStorage.getItem('clientID');
-    chatHistory = JSON.parse(sessionStorage.getItem('chatHistory'));
-    
-    removeDupeUserMessages(chatHistory);
-    // iterate over the chatHistory array and add the messages to the chat window
-    for (var i = 0; i < chatHistory.length - 1; i++) {
-      var messageHTML = chatHistory[i];
-      var messageNode = document.createElement('div');
-      messageNode.innerHTML = messageHTML;
-      bubbleWrap.insertBefore(messageNode.firstChild, bubbleTyping);
-    }
-
-    var lastEntry = chatHistory[chatHistory.length - 1];
-    var spanContents = $(lastEntry).find('.bubble-button').map(function() {
-      return this.outerHTML;
-    }).get().join('');
-
-    addBubble(spanContents, function() {}, "reply");
   }
 
   var iceBreaker = false // this variable holds answer to whether this is the initative bot interaction or not
   this.reply = function(turn) {
     iceBreaker = typeof turn === "undefined"
-    turn = !iceBreaker ? turn : _convo.ice
+    turn = !iceBreaker ? turn : _convo[Object.keys(turn)[0]]
     questionsHTML = ""
     if (!turn) return
     if (turn.reply !== undefined) {
@@ -166,12 +165,12 @@ function Bubbles(container, self, options) {
   // navigate "answers"
   this.answer = function(key, content) {
     var func = function(key, content) {
-      typeof window[key] === "function" ? window[key](content) : false
-    }
+      typeof window[key] === "function" ? window[key](content) : false;
+    };
     _convo[key] !== undefined
-      ? (this.reply(_convo[key]), (standingAnswer = key))
-      : (typeof responseCallbackFn === 'function' ? responseCallbackFn(content) : func(key, content))
-  }
+      ? this.reply(_convo[key])
+      : typeof responseCallbackFn === 'function' ? responseCallbackFn(content) : func(key, content);
+  };
 
   // api for typing bubble
   this.think = function() {
@@ -212,7 +211,7 @@ var addBubble = function(say, posted, reply, live) {
   var animationTime = live ? this.animationTime : 0;
   var typeSpeed = live ? this.typeSpeed : 0;
 
-  var messageSource = (reply === "reply") ? "user" : "bot";
+  var messageSource = (reply === "reply" || reply === "reply reply-freeform") ? "user" : "bot";
 
   // create bubble element
   var msgContainer = document.createElement("div")
@@ -231,10 +230,16 @@ var addBubble = function(say, posted, reply, live) {
   bubble.appendChild(bubbleContent);
 
   if (messageSource == "user") {
+    if (reply === "reply reply-freeform") { // TEXT INPUT IS HANDLED HERE
+      msgContainer = bubbleWrap.childNodes[bubbleWrap.childNodes.length - 2]
+      msgContainer.insertBefore(bubble, msgContainer.lastChild)
+      avatar.style.marginRight = 0;
+    } else {
     msgContainer.id = "user-message";
     msgContainer.appendChild(bubble);
     msgContainer.appendChild(avatar);
     avatar.style.marginRight = 0;
+    }
   } else {
     msgContainer.id = "bot-message";
     msgContainer.appendChild(avatar);
@@ -270,12 +275,6 @@ var addBubble = function(say, posted, reply, live) {
         }
 
         this.classList.add("bubble-picked");
-
-        chatHistory.pop();
-        userMsg = ('<div class="msg-container" id="user-message"><div class="bubble reply say bubble-picked">' + bubbleContent.outerHTML + '</div></div>')
-        chatHistory.push(userMsg);
-        console.log('added msg')
-        sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
       }
     });
     isFirstMessage = true;
@@ -303,11 +302,6 @@ var addBubble = function(say, posted, reply, live) {
     bubble.style.width = say.includes("<img src=") ? "50%" : bubble.style.width;
     bubble.classList.add("say");
     posted();
-
-    var clonedContainer = msgContainer.cloneNode(true);
-    chatHistory.push(clonedContainer.outerHTML);
-    console.log('added msg 2')
-    sessionStorage.setItem('chatHistory', JSON.stringify(chatHistory));
 
     // animate scrolling
     containerHeight = container.offsetHeight;
@@ -363,18 +357,4 @@ if (typeof exports !== "undefined") {
   exports.Bubbles = Bubbles
   exports.prepHTML = prepHTML
 }
-
-function removeDupeUserMessages(chatHistory) {
-  for (let i = chatHistory.length - 2; i >= 0; i--) {
-    console.log(chatHistory[i])
-    var dupe = /<div class="msg-container" id="user-message">[\s\S]*?<\/div>/;
-    if (dupe.test(chatHistory[i])) {
-      chatHistory.splice(i, 1);
-    } else {
-    break;
-    }
-    return chatHistory;
-  }
-}
-
 }

@@ -26,6 +26,3 @@ def get_locations():
         return response.json()
     else:
         return None
-    
-def get_registration_link(id):
-    return class_id_link_map[id]
