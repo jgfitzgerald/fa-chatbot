@@ -1,6 +1,6 @@
 {
     "init": {
-        "says": ["Thanks for checking out Life Start, my name is Aida.", "I'm a chatbot here to help with your course-related needs.", "Let's start out with what province you are looking to get your training done in."],
+        "says": ["Thanks for checking out Life Start, my name is George.", "I'm a chatbot here to help with your course-related needs.", "Let's start out with what province you are looking to get your training done in."],
         "response_key": "province",
         "reply": [
             {
