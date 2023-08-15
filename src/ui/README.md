@@ -1,4 +1,4 @@
-# Chatbot Backend
+# Chatbot Frontend
 
 This file provides an overview of how to run the frontend of the chatbot, which handles communication with the backend and renders chatbot and user messages.
 
