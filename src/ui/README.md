@@ -36,3 +36,11 @@ By combining these components, the chatbot frontend creates an engaging and dyna
 1. Navigate to the `ui` directory.
 2. Run the frontend using the command `serve` or `yarn start`
 3. Your chatbot webpage will be hosted on `localhost:3000`
+
+---
+
+## Acknowledgements
+
+The frontend for this project is built upon the foundation of the [`chat-bubble`](https://github.com/dmitrizzle/chat-bubble) framework, which provides a simple and lightweight solution for creating chat interfaces, and is liscensed under the MIT liscense. The framework was developed by [dmitrizzle](https://github.com/dmitrizzle). 
+
+For more information about the `chat-bubble` framework, please visit the [GitHub repository](https://github.com/dmitrizzle/chat-bubble).

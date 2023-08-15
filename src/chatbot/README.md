@@ -31,11 +31,3 @@ This file provides an overview of the backend components that handle and return 
 For more detailed information, refer to the comments in each individual code file. These comments provide a deeper understanding of how each component functions and interacts within the backend.
 
 Feel free to adapt and extend the backend components to create a customized chatbot solution that suits your requirements.
-
----
-
-## Acknowledgements
-
-The frontend for this project is built upon the foundation of the [`chat-bubble`](https://github.com/dmitrizzle/chat-bubble) framework, which provides a simple and lightweight solution for creating chat interfaces, and is liscensed under the MIT liscense. The framework was developed by [dmitrizzle](https://github.com/dmitrizzle). 
-
-For more information about the `chat-bubble` framework, please visit the [GitHub repository](https://github.com/dmitrizzle/chat-bubble).
