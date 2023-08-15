@@ -12,11 +12,7 @@
 .bubble.reply.history {
   margin: 0 0 2px 0; /* remembered bubbles do not need to stand out via margin */
 }
-.bubble.reply.say {
-  /*
-  min-width: 350px;
- */
-}
+
 .bubble.reply .bubble-content {
   transition: all 200ms;
 }
@@ -109,6 +105,7 @@
   background: linear-gradient(166deg, #48121d, #0d4058 100%) !important;
 }
 
+
 .avatar {
   width: 30px; /* Adjust the width of the icon */
   height: 30px; /* Adjust the height of the icon */
@@ -133,3 +130,6 @@
   margin-left: 8px; /* Adjust the spacing between the icon and the message */
 }
 
+.bubble.reply.say.bubble-picked {
+  animation: bubbleAnimation 0.25s ease-in;
+}
