@@ -1,0 +1,9 @@
+{
+    "name": "chatbot",
+    "version": "1.0.0",
+    "license": "MIT",
+    "description": "Chatbot backend using JSON scripting and regex substitution.",
+    "dependencies": {
+      "flask": "^0.2.10"
+    }
+  }

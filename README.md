@@ -18,7 +18,7 @@ Follow these steps to set up and run the project locally:
 
 4. Install dependencies using yarn: `yarn install`
 
-5. Run the backend using the command `flask run`, the backend will be hosted on `localhost:5000`.
+5. Run the backend using the command `flask run` or `python -m flask run`, the backend will be hosted on `localhost:5000`.
 
 ### Run the backend
 
