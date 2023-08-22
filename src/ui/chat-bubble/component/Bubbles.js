@@ -57,14 +57,11 @@ function Bubbles(container, self, options) {
   sidePadding = options.sidePadding || 6 // padding on both sides of chat bubbles
   inputCallbackFn = options.inputCallbackFn || false // should we display an input field?
   responseCallbackFn =  options.responseCallbackFn || false // is there a callback function for when a user clicks on a bubble button
-  chatHistoryEnabled = options.chatHistoryEnabled || false
   // this function is called after the user sends a message
 
   var _convo = {} // local memory for conversation JSON object
   //--> NOTE that this object is only assigned once, per session and does not change for this
   // 		constructor name during open session.
-
-  var chatHistory = [];
 
   // set up the stage
   container.classList.add("bubble-container")

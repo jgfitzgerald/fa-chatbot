@@ -8,7 +8,7 @@ Follow these steps to set up and run the project locally:
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/your-repo.git
+   git clone https://github.com/jgfitzgerald/fa-chatbot
 
 2. Navigate to the `src` directory.
 
