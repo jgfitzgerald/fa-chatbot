@@ -5,7 +5,7 @@
             {
                 "question": "Select a different course.",
                 
-                "answer": "init_course_find.json"
+                "answer": "get_course_format.json"
             },
             {
                 "question": "Register for this course.",
