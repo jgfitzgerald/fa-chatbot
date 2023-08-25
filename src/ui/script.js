@@ -26,8 +26,10 @@ $(function() {
 
   // delete the chat if the page is reloaded
   window.onbeforeunload = function(event) {
-    chatStarted = false;
-    deleteChat(clientId);
+    if (clientId != null) {
+      chatStarted = false;
+      deleteChat(clientId);
+    }
   };
 
   function sendFirstMessage() {
