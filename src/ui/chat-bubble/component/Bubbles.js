@@ -10,7 +10,7 @@ function Bubbles(container, self, options) {
         "input": content
       };
 
-      fetch('http://localhost:5000/app/chat', {
+      fetch('http://localhost:5000/api/chat', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ function Bubbles(container, self, options) {
     //     "input": content.input
     //   };
 
-    //   fetch('http://localhost:5000/app/chat', {
+    //   fetch('http://localhost:5000/api/chat', {
     //   method: 'POST',
     //   headers: {
     //       'Content-Type': 'application/json'

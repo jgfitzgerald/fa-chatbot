@@ -11,7 +11,7 @@ db = {}
 if __name__ == '__main__':
     app.run()
 
-@app.route('/app/chat', methods=['POST'])
+@app.route('/api/chat', methods=['POST'])
 def chat():
     try:
         if request.json['id'] not in db:
@@ -27,7 +27,7 @@ def chat():
         # return an error message to user
         return error_data
 
-@app.route('/app/start', methods=['POST'])
+@app.route('/api/start', methods=['POST'])
 def start():
     # instantiate a new chatbot and add to database
     new_bot = Chatbot()
@@ -36,6 +36,20 @@ def start():
     # return the first message
     init_msg = new_bot.run()
     return jsonify(init_msg)
+
+@app.route('/api/end', methods=['DELETE'])
+def end():
+    try:
+        chat_id = request.args.get('id')
+        
+        if chat_id not in db:
+            return {"error": f"Chat with ID {chat_id} not found"}, 404
+        else:
+            # Delete the chat
+            del db[chat_id]
+            return {"message": f"Chat with ID {chat_id} deleted successfully"}, 200
+    except Exception as e:
+        return {"error": str(e)}, 500
 
 # Error handler for 404 Not Found
 @app.errorhandler(404)

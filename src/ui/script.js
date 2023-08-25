@@ -14,6 +14,7 @@ $(function() {
   var refreshButton = document.querySelector(".chat-box-refresh");
 
   refreshButton.addEventListener("click", function() {
+    deleteChat(clientId);
     chatStarted = false;
     document.querySelector(".bubble-wrap").remove();
     chatWindow = new Bubbles(
@@ -23,35 +24,16 @@ $(function() {
     sendFirstMessage();
   });
 
-  // if (
-  //   sessionStorage.getItem("chatHistory") !== null &&
-  //   sessionStorage.getItem("clientID") !== null
-  // ) {
-
-  //   chatHistory = JSON.parse(sessionStorage.getItem("chatHistory"));
-  //   lastMsgHTML = chatHistory.pop();
-
-  //   var tempContainer = document.createElement("div");
-  //   tempContainer.innerHTML = lastMsgHTML;
-  //   var lastMsg = tempContainer.lastChild;
-
-  //   var invalidRender =
-  //     lastMsg.id === "bot-message" ||
-  //     lastMsg.querySelector(".bubble.reply.say").classList.contains(
-  //       "bubble-picked"
-  //     );
-
-  //   // Restore chat history
-  //   if (!invalidRender) {
-  //     chatStarted = true;
-  //     chatWindow.restoreChatHistory();
-  //   }
-  // }
+  // delete the chat if the page is reloaded
+  window.onbeforeunload = function(event) {
+    chatStarted = false;
+    deleteChat(clientId);
+  };
 
   function sendFirstMessage() {
     // Make a POST request to fetch the conversation flow from the API
     if (!chatStarted) {
-      fetch("http://localhost:5000/app/start", {
+      fetch("http://localhost:5000/api/start", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -76,6 +58,15 @@ $(function() {
         });
     }
   }
+
+  function deleteChat(clientId) {
+    fetch(`http://localhost:5000/api/end?id=${clientId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {})
+    .catch(error => console.error('Error:', error));
+}
 
   $("#chat-circle").click(function() {
     $("#chat-circle").toggle("scale");
