@@ -1,11 +1,16 @@
 {
     "ice": {
-        "says": ["This course is currently not available."],
+        "says": ["Virtual Heart Attack Awareness includes a variety of self-leaf videos that teaches participants about heart attacks and their varying symptoms. This is not a CSA approved course."],
         "reply": [
             {
                 "question": "Select a different course.",
                 
                 "answer": "get_course_format.json"
+            },
+            {
+                "question": "Register for this course.",
+                
+                "answer": "find-course-dates/display_course.json"
             }
         ]
     }

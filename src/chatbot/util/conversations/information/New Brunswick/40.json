@@ -6,6 +6,11 @@
                 "question": "Select a different course.",
                 
                 "answer": "get_course_format.json"
+            },
+            {
+                "question": "Register for this course.",
+                
+                "answer": "find-course-dates/display_course.json"
             }
         ]
     }
