@@ -1,6 +1,6 @@
 # Project Overview
 
-This project consists of a frontend chatbot interface that allows users to interact with a chatbot. The chatbot responds to user input and displays messages as chat bubbles in the interface. The project does not use frameworks like React, Babel, or Webpack to keep it simple and lightweight and easily integratable with other projects.
+This project consists of a frontend chatbot interface that allows users to interact with a chatbot. The chatbot responds to user input and displays messages as chat bubbles in the interface.
 
 ## Getting Started
 
